@@ -1,0 +1,63 @@
+TMPFS(5)                                      Linux Programmer's Manual                                      TMPFS(5)
+
+NAME
+       tmpfs - a virtual memory filesystem
+
+DESCRIPTION
+       The  tmpfs  facility  allows  the  creation of filesystems whose contents reside in virtual memory.  Since the
+       files on such filesystems typically reside in RAM, file access is extremely fast.
+
+       The filesystem is automatically created when mounting a filesystem with the type tmpfs via a command  such  as
+       the following:
+
+           $ sudo mount -t tmpfs -o size=10M tmpfs /mnt/mytmpfs
+
+       A tmpfs filesystem has the following properties:
+
+       *  The filesystem can employ swap space when physical memory pressure demands it.
+
+       *  The  size option can be used to specify an upper limit on the size of the filesystem.  (The default size is
+          half of the available RAM size.)  The filesystem consumes only as much physical memory and swap space as is
+          required to store the current contents of the filesystem.
+
+       *  During a remount operation (mount -o remount), the filesystem size can be changed (without losing  the  ex‐
+          isting contents of the filesystem).
+
+       If a tmpfs filesystem is unmounted, its contents are discarded (lost).
+
+VERSIONS
+       The  tmpfs  facility was added in Linux 2.4, as a successor to the older ramfs facility, which did not provide
+       limit checking or allow for the use of swap space.
+
+NOTES
+       For a description of the mount options that may be employed when mounting a tmpfs filesystem, see mount(8).
+
+       In order for user-space tools and applications to create tmpfs filesystems, the kernel must be configured with
+       the CONFIG_TMPFS option.
+
+       The tmpfs filesystem supports extended attributes (see xattr(7)), but user extended attributes are not permit‐
+       ted.
+
+       An internal shared memory filesystem is used for System V shared memory (shmget(2)) and shared anonymous  map‐
+       pings  (mmap(2)  with  the  MAP_SHARED  and  MAP_ANONYMOUS flags).  This filesystem is available regardless of
+       whether the kernel was configured with the CONFIG_TMPFS option.
+
+       A tmpfs filesystem mounted at /dev/shm as used for the implementation of POSIX shared memory (shm_overview(7))
+       and POSIX semaphores (sem_overview(7)).
+
+       The amount of memory consumed by all tmpfs filesystems is shown in the Shmem field of /proc/meminfo and in the
+       shared field displayed by free(1).
+
+       The tmpfs facility was formerly called shmfs.
+
+SEE ALSO
+       df(1), du(1), memfd_create(2), mmap(2), shm_open(3), mount(8)
+
+       The kernel source file Documentation/filesystems/tmpfs.txt.
+
+COLOPHON
+       This page is part of release 4.15 of the Linux man-pages project.  A description of the  project,  information
+       about    reporting    bugs,    and    the    latest    version    of    this    page,    can   be   found   at
+       https://www.kernel.org/doc/man-pages/.
+
+Linux                                                 2017-05-03                                             TMPFS(5)

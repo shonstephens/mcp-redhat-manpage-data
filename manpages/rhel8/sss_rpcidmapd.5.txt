@@ -1,0 +1,57 @@
+SSS_RPCIDMAPD(5)                             File Formats and Conventions                            SSS_RPCIDMAPD(5)
+
+NAME
+       sss_rpcidmapd - sss plugin configuration directives for rpc.idmapd
+
+CONFIGURATION FILE
+       rpc.idmapd configuration file is usually found at /etc/idmapd.conf. See idmapd.conf(5) for more information.
+
+SSS CONFIGURATION EXTENSION
+   Enable SSS plugin
+       In section “[Translation]”, modify/set “Method” attribute to contain sss.
+
+   [sss] config section
+       In order to change the default of one of the configuration attributes of the sss plugin listed below you will
+       need to create a config section for it, named “[sss]”.
+
+       Configuration attributes
+
+       memcache (bool)
+           Indicates whether or not to use memcache optimisation technique.
+
+           Default: True
+
+SSSD INTEGRATION
+       The sss plugin requires the NSS Responder to be enabled in sssd.
+
+       The attribute “use_fully_qualified_names” must be enabled on all domains (NFSv4 clients expect a fully
+       qualified name to be sent on the wire).
+
+EXAMPLE
+       The following example shows a minimal idmapd.conf which makes use of the sss plugin.
+
+           [General]
+           Verbosity = 2
+           # domain must be synced between NFSv4 server and clients
+           # Solaris/Illumos/AIX use "localdomain" as default!
+           Domain = default
+
+           [Mapping]
+           Nobody-User = nfsnobody
+           Nobody-Group = nfsnobody
+
+           [Translation]
+           Method = sss
+
+SEE ALSO
+       sssd(8), idmapd.conf(5)
+
+AUTHORS
+       Noam Meltzer
+       Primary Data Inc.
+           Developer (2013-2014)
+
+       Noam Meltzer <tsnoam@gmail.com>
+           Developer (2014-)
+
+sss rpc.idmapd plugin                                 01/26/2026                                     SSS_RPCIDMAPD(5)

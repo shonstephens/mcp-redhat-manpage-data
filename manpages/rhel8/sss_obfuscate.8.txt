@@ -1,0 +1,46 @@
+SSS_OBFUSCATE(8)                                  SSSD Manual pages                                  SSS_OBFUSCATE(8)
+
+NAME
+       sss_obfuscate - obfuscate a clear text password
+
+SYNOPSIS
+
+       sss_obfuscate [options] [PASSWORD]
+
+DESCRIPTION
+       sss_obfuscate converts a given password into human-unreadable format and places it into appropriate domain
+       section of the SSSD config file.
+
+       The cleartext password is read from standard input or entered interactively. The obfuscated password is put
+       into “ldap_default_authtok” parameter of a given SSSD domain and the “ldap_default_authtok_type” parameter is
+       set to “obfuscated_password”. Refer to sssd-ldap(5) for more details on these parameters.
+
+       Please note that obfuscating the password provides no real security benefit as it is still possible for an
+       attacker to reverse-engineer the password back. Using better authentication mechanisms such as client side
+       certificates or GSSAPI is strongly advised.
+
+OPTIONS
+       -h,--help
+           Display help message and exit.
+
+       -s,--stdin
+           The password to obfuscate will be read from standard input.
+
+       -d,--domain DOMAIN
+           The SSSD domain to use the password in. The default name is “default”.
+
+       -f,--file FILE
+           Read the config file specified by the positional parameter.
+
+           Default: /etc/sssd/sssd.conf
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-files(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8),
+       sss_obfuscate(8), sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(8),
+       sss_ssh_knownhostsproxy(8), sssd-ifp(5), pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  01/26/2026                                     SSS_OBFUSCATE(8)

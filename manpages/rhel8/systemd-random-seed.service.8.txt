@@ -1,0 +1,19 @@
+SYSTEMD-RANDOM-SEED.SERVICE(8)               systemd-random-seed.service               SYSTEMD-RANDOM-SEED.SERVICE(8)
+
+NAME
+       systemd-random-seed.service, systemd-random-seed - Load and save the system random seed at boot and shutdown
+
+SYNOPSIS
+       systemd-random-seed.service
+
+       /usr/lib/systemd/random-seed
+
+DESCRIPTION
+       systemd-random-seed.service is a service that restores the random seed of the system at early boot and saves
+       it at shutdown. See random(4) for details. Saving/restoring the random seed across boots increases the amount
+       of available entropy early at boot. On disk the random seed is stored in /var/lib/systemd/random-seed.
+
+SEE ALSO
+       systemd(1), random(4)
+
+systemd 239                                                                            SYSTEMD-RANDOM-SEED.SERVICE(8)

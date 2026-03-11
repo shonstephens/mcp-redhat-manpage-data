@@ -1,0 +1,193 @@
+SSSD-SYSTEMTAP(5)                            File Formats and Conventions                           SSSD-SYSTEMTAP(5)
+
+NAME
+       sssd-systemtap - SSSD systemtap information
+
+DESCRIPTION
+       This manual page provides information about the systemtap functionality in sssd(8).
+
+       SystemTap Probe points have been added into various locations in SSSD code to assist in troubleshooting and
+       analyzing performance related issues.
+
+       •   Sample SystemTap scripts are provided in /usr/share/sssd/systemtap/
+
+       •   Probes and miscellaneous functions are defined in /usr/share/systemtap/tapset/sssd.stp and
+           /usr/share/systemtap/tapset/sssd_functions.stp respectively.
+
+PROBE POINTS
+       The information below lists the probe points and arguments available in the following format:
+
+       probe $name
+           Description of probe point
+
+               variable1:datatype
+               variable2:datatype
+               variable3:datatype
+               ...
+
+   Database Transaction Probes
+       probe sssd_transaction_start
+           Start of a sysdb transaction, probes the sysdb_transaction_start() function.
+
+               nesting:integer
+               probestr:string
+
+       probe sssd_transaction_cancel
+           Cancellation of a sysdb transaction, probes the sysdb_transaction_cancel() function.
+
+               nesting:integer
+               probestr:string
+
+       probe sssd_transaction_commit_before
+           Probes the sysdb_transaction_commit_before() function.
+
+               nesting:integer
+               probestr:string
+
+       probe sssd_transaction_commit_after
+           Probes the sysdb_transaction_commit_after() function.
+
+               nesting:integer
+               probestr:string
+
+   LDAP Search Probes
+       probe sdap_search_send
+           Probes the sdap_get_generic_ext_send() function.
+
+               base:string
+               scope:integer
+               filter:string
+               attrs:string
+               probestr:string
+
+       probe sdap_search_recv
+           Probes the sdap_get_generic_ext_recv() function.
+
+               base:string
+               scope:integer
+               filter:string
+               probestr:string
+
+       probe sdap_parse_entry
+           Probes the sdap_parse_entry() function. It is called repeatedly with every received attribute.
+
+               attr:string
+               value:string
+
+       probe sdap_parse_entry_done
+           Probes the sdap_parse_entry() function. It is called when parsing of received object is finished.
+
+       probe sdap_deref_send
+           Probes the sdap_deref_search_send() function.
+
+               base_dn:string
+               deref_attr:string
+               probestr:string
+
+       probe sdap_deref_recv
+           Probes the sdap_deref_search_recv() function.
+
+               base:string
+               scope:integer
+               filter:string
+               probestr:string
+
+   LDAP Account Request Probes
+       probe sdap_acct_req_send
+           Probes the sdap_acct_req_send() function.
+
+               entry_type:int
+               filter_type:int
+               filter_value:string
+               extra_value:string
+
+       probe sdap_acct_req_recv
+           Probes the sdap_acct_req_recv() function.
+
+               entry_type:int
+               filter_type:int
+               filter_value:string
+               extra_value:string
+
+   LDAP User Search Probes
+       probe sdap_search_user_send
+           Probes the sdap_search_user_send() function.
+
+               filter:string
+
+       probe sdap_search_user_recv
+           Probes the sdap_search_user_recv() function.
+
+               filter:string
+
+       probe sdap_search_user_save_begin
+           Probes the sdap_search_user_save_begin() function.
+
+               filter:string
+
+       probe sdap_search_user_save_end
+           Probes the sdap_search_user_save_end() function.
+
+               filter:string
+
+   Data Provider Request Probes
+       probe dp_req_send
+           A Data Provider request is submitted.
+
+               dp_req_domain:string
+               dp_req_name:string
+               dp_req_target:int
+               dp_req_method:int
+
+       probe dp_req_done
+           A Data Provider request is completed.
+
+               dp_req_name:string
+               dp_req_target:int
+               dp_req_method:int
+               dp_ret:int
+               dp_errorstr:string
+
+   MISCELLANEOUS FUNCTIONS
+       The information below lists the probe points and arguments available in the following format:
+
+       function acct_req_desc(entry_type)
+           Convert entry_type to string and return string
+
+       function sssd_acct_req_probestr(fc_name, entry_type, filter_type, filter_value, extra_value)
+           Create probe string based on filter type
+
+       function dp_target_str(target)
+           Convert target to string and return string
+
+       function dp_method_str(target)
+           Convert method to string and return string
+
+SAMPLE SYSTEMTAP SCRIPTS
+       Start the SystemTap script (stap /usr/share/sssd/systemtap/<script_name>.stp), then perform an identity
+       operation and the script will collect information from probes.
+
+       Provided SystemTap scripts are:
+
+       dp_request.stp
+           Monitoring of data provider request performance.
+
+       id_perf.stp
+           Monitoring of id command performance.
+
+       ldap_perf.stp
+           Monitoring of LDAP queries.
+
+       nested_group_perf.stp
+           Performance of nested groups resolving.
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-files(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8),
+       sss_obfuscate(8), sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(8),
+       sss_ssh_knownhostsproxy(8), sssd-ifp(5), pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  01/26/2026                                    SSSD-SYSTEMTAP(5)

@@ -1,0 +1,102 @@
+EXIT(1P)                                      POSIX Programmer's Manual                                      EXIT(1P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       exit — cause the shell to exit
+
+SYNOPSIS
+       exit [n]
+
+DESCRIPTION
+       The  exit utility shall cause the shell to exit with the exit status specified by the unsigned decimal integer
+       n.  If n is specified, but its value is not between 0 and 255 inclusively, the exit status is undefined.
+
+       A trap on EXIT shall be executed before the shell terminates, except when the exit utility is invoked in  that
+       trap itself, in which case the shell shall exit immediately.
+
+OPTIONS
+       None.
+
+OPERANDS
+       See the DESCRIPTION.
+
+STDIN
+       Not used.
+
+INPUT FILES
+       None.
+
+ENVIRONMENT VARIABLES
+       None.
+
+ASYNCHRONOUS EVENTS
+       Default.
+
+STDOUT
+       Not used.
+
+STDERR
+       The standard error shall be used only for diagnostic messages.
+
+OUTPUT FILES
+       None.
+
+EXTENDED DESCRIPTION
+       None.
+
+EXIT STATUS
+       The exit status shall be n, if specified. Otherwise, the value shall be the exit value of the last command ex‐
+       ecuted,  or  zero if no command was executed. When exit is executed in a trap action, the last command is con‐
+       sidered to be the command that executed immediately preceding the trap action.
+
+CONSEQUENCES OF ERRORS
+       Default.
+
+       The following sections are informative.
+
+APPLICATION USAGE
+       None.
+
+EXAMPLES
+       Exit with a true value:
+
+           exit 0
+
+       Exit with a false value:
+
+           exit 1
+
+RATIONALE
+       As explained in other sections, certain exit status values have been reserved for special uses and  should  be
+       used by applications only for those purposes:
+
+        126    A file to be executed was found, but it was not an executable utility.
+
+        127    A utility to be executed was not found.
+
+       >128    A command was interrupted by a signal.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       Section 2.14, Special Built-In Utilities
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                                EXIT(1P)

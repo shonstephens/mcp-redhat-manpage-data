@@ -1,0 +1,101 @@
+SSS_CACHE(8)                                      SSSD Manual pages                                      SSS_CACHE(8)
+
+NAME
+       sss_cache - perform cache cleanup
+
+SYNOPSIS
+
+       sss_cache [options]
+
+DESCRIPTION
+       sss_cache invalidates records in SSSD cache. Invalidated records are forced to be reloaded from server as soon
+       as related SSSD backend is online. Options that invalidate a single object only accept a single provided
+       argument.
+
+OPTIONS
+       -E,--everything
+           Invalidate all cached entries.
+
+       -u,--user login
+           Invalidate specific user.
+
+       -U,--users
+           Invalidate all user records. This option overrides invalidation of specific user if it was also set.
+
+       -g,--group group
+           Invalidate specific group.
+
+       -G,--groups
+           Invalidate all group records. This option overrides invalidation of specific group if it was also set.
+
+       -n,--netgroup netgroup
+           Invalidate specific netgroup.
+
+       -N,--netgroups
+           Invalidate all netgroup records. This option overrides invalidation of specific netgroup if it was also
+           set.
+
+       -s,--service service
+           Invalidate specific service.
+
+       -S,--services
+           Invalidate all service records. This option overrides invalidation of specific service if it was also set.
+
+       -a,--autofs-map autofs-map
+           Invalidate specific autofs maps.
+
+       -A,--autofs-maps
+           Invalidate all autofs maps. This option overrides invalidation of specific map if it was also set.
+
+       -h,--ssh-host hostname
+           Invalidate SSH public keys of a specific host.
+
+       -H,--ssh-hosts
+           Invalidate SSH public keys of all hosts. This option overrides invalidation of SSH public keys of specific
+           host if it was also set.
+
+       -r,--sudo-rule rule
+           Invalidate particular sudo rule.
+
+       -R,--sudo-rules
+           Invalidate all cached sudo rules. This option overrides invalidation of specific sudo rule if it was also
+           set.
+
+       -d,--domain domain
+           Restrict invalidation process only to a particular domain.
+
+       -?,--help
+           Display help message and exit.
+
+EFFECTS ON THE FAST MEMORY CACHE
+       sss_cache also invalidates the memory cache. Since the memory cache is a file which is mapped into the memory
+       of each process which called SSSD to resolve users or groups the file cannot be truncated. A special flag is
+       set in the header of the file to indicate that the content is invalid and then the file is unlinked by SSSD's
+       NSS responder and a new cache file is created. Whenever a process is now doing a new lookup for a user or a
+       group it will see the flag, close the old memory cache file and map the new one into its memory. When all
+       processes which had opened the old memory cache file have closed it while looking up a user or a group the
+       kernel can release the occupied disk space and the old memory cache file is finally removed completely.
+
+       A special case is long running processes which are doing user or group lookups only at startup, e.g. to
+       determine the name of the user the process is running as. For those lookups the memory cache file is mapped
+       into the memory of the process. But since there will be no further lookups this process would never detect if
+       the memory cache file was invalidated and hence it will be kept in memory and will occupy disk space until the
+       process stops. As a result calling sss_cache might increase the disk usage because old memory cache files
+       cannot be removed from the disk because they are still mapped by long running processes.
+
+       A possible work-around for long running processes which are looking up users and groups only at startup or
+       very rarely is to run them with the environment variable SSS_NSS_USE_MEMCACHE set to "NO" so that they won't
+       use the memory cache at all and not map the memory cache file into the memory. In general a better solution is
+       to tune the cache timeout parameters so that they meet the local expectations and calling sss_cache is not
+       needed.
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8), sss_obfuscate(8),
+       sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(1), sss_ssh_knownhosts(1), sssd-ifp(5),
+       pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/21/2025                                         SSS_CACHE(8)

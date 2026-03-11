@@ -1,0 +1,71 @@
+GRANTPT(3P)                                   POSIX Programmer's Manual                                   GRANTPT(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       grantpt — grant access to the slave pseudo-terminal device
+
+SYNOPSIS
+       #include <stdlib.h>
+
+       int grantpt(int fildes);
+
+DESCRIPTION
+       The grantpt() function shall change the mode and ownership of the slave pseudo-terminal device associated with
+       its  master  pseudo-terminal  counterpart.  The  fildes  argument is a file descriptor that refers to a master
+       pseudo-terminal device. The user ID of the slave shall be set to the real UID of the calling process  and  the
+       group  ID  shall  be set to an unspecified group ID. The permission mode of the slave pseudo-terminal shall be
+       set to readable and writable by the owner, and writable by the group.
+
+       The behavior of the grantpt() function is unspecified if the application has installed  a  signal  handler  to
+       catch SIGCHLD signals.
+
+RETURN VALUE
+       Upon  successful completion, grantpt() shall return 0; otherwise, it shall return −1 and set errno to indicate
+       the error.
+
+ERRORS
+       The grantpt() function may fail if:
+
+       EBADF  The fildes argument is not a valid open file descriptor.
+
+       EINVAL The fildes argument is not associated with a master pseudo-terminal device.
+
+       EACCES The corresponding slave pseudo-terminal device could not be accessed.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       See the RATIONALE section for posix_openpt().
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       open(), posix_openpt(), ptsname(), unlockpt()
+
+       The Base Definitions volume of POSIX.1‐2008, <stdlib.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                             GRANTPT(3P)

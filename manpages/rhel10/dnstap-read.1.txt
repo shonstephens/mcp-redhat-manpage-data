@@ -1,0 +1,34 @@
+DNSTAP-READ(1)                                          BIND 9                                         DNSTAP-READ(1)
+
+NAME
+       dnstap-read - print dnstap data in human-readable form
+
+SYNOPSIS
+       dnstap-read [-m] [-p] [-x] [-y] {file}
+
+DESCRIPTION
+       dnstap-read  reads  dnstap  data  from  a specified file and prints it in a human-readable format. By default,
+       dnstap data is printed in a short summary format, but if the -y option is specified, a  longer  and  more  de‐
+       tailed YAML format is used.
+
+OPTIONS
+       -m     This option indicates trace memory allocations, and is used for debugging memory leaks.
+
+       -p     This  option  prints  the text form of the DNS message that was encapsulated in the dnstap frame, after
+              printing the dnstap data.
+
+       -x     This option prints a hex dump of the wire form of the DNS message that was encapsulated in  the  dnstap
+              frame, after printing the dnstap data.
+
+       -y     This option prints dnstap data in a detailed YAML format.
+
+SEE ALSO
+       named(8), rndc(8), BIND 9 Administrator Reference Manual.
+
+AUTHOR
+       Internet Systems Consortium
+
+COPYRIGHT
+       2025, Internet Systems Consortium
+
+9.18.33                                                                                                DNSTAP-READ(1)

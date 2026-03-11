@@ -1,0 +1,26 @@
+cons.saver(8)                                        User Manuals                                       cons.saver(8)
+
+NAME
+       cons.saver - general-purpose Linux console screen save and restore server
+
+SYNOPSIS
+       cons.saver TTY
+
+DESCRIPTION
+       Invoke this helper program with the Ctrl-o key combination to save and restore the user session on the screen.
+
+OPTIONS
+       cons.saver takes only one argument, the TTY NAME from which the system  will save and restore.
+
+SECURITY
+       Cons.saver does not need to be invoked by root.  It only needs read and write access to /dev/vcsa*, which is a
+       priviledged  operation.   You should create an unprivileged user, make cons.saver setuid to that user, and as‐
+       sure that all the vcsa* are owned by that user too.
+
+AUTHOR
+       Manpage written by Rodrigo Rubira Branco <rrbranco@br.ibm.com>
+
+SEE ALSO
+       mc(1), mcserv(8)
+
+Linux                                                May 16, 2006                                       cons.saver(8)

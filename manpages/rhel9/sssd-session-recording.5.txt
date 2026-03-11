@@ -1,0 +1,84 @@
+SSSD-SESSION-RECOR(5)                        File Formats and Conventions                       SSSD-SESSION-RECOR(5)
+
+NAME
+       sssd-session-recording - Configuring session recording with SSSD
+
+DESCRIPTION
+       This manual page describes how to configure sssd(8) to work with tlog-rec-session(8), a part of tlog package,
+       to implement user session recording on text terminals. For a detailed configuration syntax reference, refer to
+       the “FILE FORMAT” section of the sssd.conf(5) manual page.
+
+       SSSD can be set up to enable recording of everything specific users see or type during their sessions on text
+       terminals. E.g. when users log in on the console, or via SSH. SSSD itself doesn't record anything, but makes
+       sure tlog-rec-session is started upon user login, so it can record according to its configuration.
+
+       For users with session recording enabled, SSSD replaces the user shell with tlog-rec-session in NSS responses,
+       and adds a variable specifying the original shell to the user environment, upon PAM session setup. This way
+       tlog-rec-session can be started in place of the user shell, and know which actual shell to start, once it set
+       up the recording.
+
+CONFIGURATION OPTIONS
+       These options can be used to configure the session recording.
+
+       scope (string)
+           One of the following strings specifying the scope of session recording:
+
+           "none"
+               No users are recorded.
+
+           "some"
+               Users/groups specified by users and groups options are recorded.
+
+           "all"
+               All users are recorded.
+
+           Default: "none"
+
+       users (string)
+           A comma-separated list of users which should have session recording enabled. Matches user names as
+           returned by NSS. I.e. after the possible space replacement, case changes, etc.
+
+           Default: Empty. Matches no users.
+
+       groups (string)
+           A comma-separated list of groups, members of which should have session recording enabled. Matches group
+           names as returned by NSS. I.e. after the possible space replacement, case changes, etc.
+
+           NOTE: using this option (having it set to anything) has a considerable performance cost, because each
+           uncached request for a user requires retrieving and matching the groups the user is member of.
+
+           Default: Empty. Matches no groups.
+
+       exclude_users (string)
+           A comma-separated list of users to be excluded from recording, only applicable with 'scope=all'.
+
+           Default: Empty. No users excluded.
+
+       exclude_groups (string)
+           A comma-separated list of groups, members of which should be excluded from recording. Only applicable with
+           'scope=all'.
+
+           NOTE: using this option (having it set to anything) has a considerable performance cost, because each
+           uncached request for a user requires retrieving and matching the groups the user is member of.
+
+           Default: Empty. No groups excluded.
+
+EXAMPLE
+       The following snippet of sssd.conf enables session recording for users "contractor1" and "contractor2", and
+       group "students".
+
+           [session_recording]
+           scope = some
+           users = contractor1, contractor2
+           groups = students
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-files(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8),
+       sss_obfuscate(8), sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(8),
+       sss_ssh_knownhostsproxy(8), sssd-ifp(5), pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/17/2025                                SSSD-SESSION-RECOR(5)

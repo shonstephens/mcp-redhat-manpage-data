@@ -1,0 +1,28 @@
+SYSTEMD-CRYPTSETUP@.SERVICE(8)               systemd-cryptsetup@.service               SYSTEMD-CRYPTSETUP@.SERVICE(8)
+
+NAME
+       systemd-cryptsetup@.service, systemd-cryptsetup - Full disk decryption logic
+
+SYNOPSIS
+       systemd-cryptsetup@.service
+
+       /usr/lib/systemd/systemd-cryptsetup
+
+DESCRIPTION
+       systemd-cryptsetup@.service is a service responsible for setting up encrypted block devices. It is
+       instantiated for each device that requires decryption for access.
+
+       systemd-cryptsetup@.service will ask for hard disk passwords via the password agent logic[1], in order to
+       query the user for the password using the right mechanism at boot and during runtime.
+
+       At early boot and when the system manager configuration is reloaded, /etc/crypttab is translated into
+       systemd-cryptsetup@.service units by systemd-cryptsetup-generator(8).
+
+SEE ALSO
+       systemd(1), systemd-cryptsetup-generator(8), crypttab(5), cryptsetup(8)
+
+NOTES
+        1. password agent logic
+           https://www.freedesktop.org/wiki/Software/systemd/PasswordAgents
+
+systemd 239                                                                            SYSTEMD-CRYPTSETUP@.SERVICE(8)

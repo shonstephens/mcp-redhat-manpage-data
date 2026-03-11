@@ -1,0 +1,20 @@
+PKLOCALAUTHORITY(8)                                pklocalauthority                               PKLOCALAUTHORITY(8)
+
+NAME
+       pklocalauthority - polkit Local Authority Compatibility
+
+DESCRIPTION
+       The polkit Local Authority no longer exists. Existing configuration files are honored; see pkla-admin-
+       identities(8) and pkla-check-authorization(8) for description of the configuration format.
+
+       Unlike the original Local Authority implementation, ReturnValue keys are ignored because polkit(8) no longer
+       supports the functionality.
+
+SEE ALSO
+       pkla-admin-identities(8), pkla-check-authorization(8), polkit(8)
+
+AUTHOR
+       Miloslav Trmač <mitr@redhat.com>
+           Author
+
+polkit-pkla-compat                                     May 2013                                   PKLOCALAUTHORITY(8)

@@ -1,0 +1,112 @@
+ENDPWENT(3P)                                  POSIX Programmer's Manual                                  ENDPWENT(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       endpwent, getpwent, setpwent — user database functions
+
+SYNOPSIS
+       #include <pwd.h>
+
+       void endpwent(void);
+       struct passwd *getpwent(void);
+       void setpwent(void);
+
+DESCRIPTION
+       These functions shall retrieve information about users.
+
+       The  getpwent() function shall return a pointer to a structure containing the broken-out fields of an entry in
+       the user database. Each entry in the user database contains a passwd structure. When first called,  getpwent()
+       shall  return  a pointer to a passwd structure containing the first entry in the user database. Thereafter, it
+       shall return a pointer to a passwd structure containing the next entry in the user database. Successive  calls
+       can be used to search the entire user database.
+
+       If an end-of-file or an error is encountered on reading, getpwent() shall return a null pointer.
+
+       An  implementation that provides extended security controls may impose further implementation-defined restric‐
+       tions on accessing the user database. In particular, the system may deny the existence of some or all  of  the
+       user database entries associated with users other than the caller.
+
+       The setpwent() function effectively rewinds the user database to allow repeated searches.
+
+       The endpwent() function may be called to close the user database when processing is complete.
+
+       These functions need not be thread-safe.
+
+RETURN VALUE
+       The getpwent() function shall return a null pointer on end-of-file or error.
+
+       The application shall not modify the structure to which the return value points, nor any storage areas pointed
+       to by pointers within the structure. The returned pointer, and pointers within the structure, might be invali‐
+       dated  or  the  structure or the storage areas might be overwritten by a subsequent call to getpwuid(), getpw‐
+       nam(), or getpwent().
+
+ERRORS
+       These functions may fail if:
+
+       EIO    An I/O error has occurred.
+
+       In addition, getpwent() and setpwent() may fail if:
+
+       EMFILE All file descriptors available to the process are currently open.
+
+       ENFILE The maximum allowable number of files is currently open in the system.
+
+       The following sections are informative.
+
+EXAMPLES
+   Searching the User Database
+       The following example uses the getpwent() function to get successive entries in the user database, returning a
+       pointer to a passwd structure that contains information about each user. The call  to  endpwent()  closes  the
+       user database and cleans up.
+
+           #include <pwd.h>
+           #include <stdio.h>
+
+           void printname(uid_t uid)
+           {
+               struct passwd *pwd;
+
+               setpwent();
+               while((pwd = getpwent()) != NULL) {
+                   if (pwd->pw_uid == uid) {
+                       printf("name=%s\n",pwd->pw_name);
+                       break;
+                   }
+               }
+               endpwent();
+           }
+
+APPLICATION USAGE
+       These  functions are provided due to their historical usage.  Applications should avoid dependencies on fields
+       in the password database, whether the database is a single file, or where in the file system  name  space  the
+       database resides. Applications should use getpwuid() whenever possible because it avoids these dependencies.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       endgrent(), getlogin(), getpwnam(), getpwuid()
+
+       The Base Definitions volume of POSIX.1‐2008, <pwd.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                            ENDPWENT(3P)

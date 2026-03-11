@@ -1,0 +1,95 @@
+FCHMOD(3P)                                    POSIX Programmer's Manual                                    FCHMOD(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       fchmod — change mode of a file
+
+SYNOPSIS
+       #include <sys/stat.h>
+
+       int fchmod(int fildes, mode_t mode);
+
+DESCRIPTION
+       The  fchmod()  function  shall  be equivalent to chmod() except that the file whose permissions are changed is
+       specified by the file descriptor fildes.
+
+       If fildes references a shared memory object, the fchmod() function need  only  affect  the  S_IRUSR,  S_IWUSR,
+       S_IRGRP, S_IWGRP, S_IROTH, and S_IWOTH file permission bits.
+
+       If fildes references a typed memory object, the behavior of fchmod() is unspecified.
+
+       If fildes refers to a socket, the behavior of fchmod() is unspecified.
+
+       If fildes refers to a STREAM (which is fattach()-ed into the file system name space) the call returns success‐
+       fully, doing nothing.
+
+RETURN VALUE
+       Upon  successful  completion, fchmod() shall return 0. Otherwise, it shall return −1 and set errno to indicate
+       the error.
+
+ERRORS
+       The fchmod() function shall fail if:
+
+       EBADF  The fildes argument is not an open file descriptor.
+
+       EPERM  The effective user ID does not match the owner of the file and the process does  not  have  appropriate
+              privileges.
+
+       EROFS  The file referred to by fildes resides on a read-only file system.
+
+       The fchmod() function may fail if:
+
+       EINTR  The fchmod() function was interrupted by a signal.
+
+       EINVAL The value of the mode argument is invalid.
+
+       EINVAL The fildes argument refers to a pipe and the implementation disallows execution of fchmod() on a pipe.
+
+       The following sections are informative.
+
+EXAMPLES
+   Changing the Current Permissions for a File
+       The  following  example  shows how to change the permissions for a file named /home/cnd/mod1 so that the owner
+       and group have read/write/execute permissions, but the world only has read/write permissions.
+
+           #include <sys/stat.h>
+           #include <fcntl.h>
+
+           mode_t mode;
+           int    fildes;
+           ...
+           fildes = open("/home/cnd/mod1", O_RDWR);
+           fchmod(fildes, S_IRWXU | S_IRWXG | S_IROTH | S_IWOTH);
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       chmod(), chown(), creat(), fcntl(), fstatat(), fstatvfs(), mknod(), open(), read(), write()
+
+       The Base Definitions volume of POSIX.1‐2008, <sys_stat.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                              FCHMOD(3P)

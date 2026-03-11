@@ -1,0 +1,65 @@
+SIGLONGJMP(3P)                                POSIX Programmer's Manual                                SIGLONGJMP(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       siglongjmp — non-local goto with signal handling
+
+SYNOPSIS
+       #include <setjmp.h>
+
+       void siglongjmp(sigjmp_buf env, int val);
+
+DESCRIPTION
+       The siglongjmp() function shall be equivalent to the longjmp() function, except as follows:
+
+        *  References to setjmp() shall be equivalent to sigsetjmp().
+
+        *  The siglongjmp() function shall restore the saved signal mask if and only if the env argument was initial‐
+           ized by a call to sigsetjmp() with a non-zero savemask argument.
+
+RETURN VALUE
+       After  siglongjmp()  is  completed,  program  execution  shall  continue as if the corresponding invocation of
+       sigsetjmp() had just returned the  value  specified  by  val.   The  siglongjmp()  function  shall  not  cause
+       sigsetjmp() to return 0; if val is 0, sigsetjmp() shall return the value 1.
+
+ERRORS
+       No errors are defined.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       The distinction between setjmp() or longjmp() and sigsetjmp() or siglongjmp() is only significant for programs
+       which use sigaction(), sigprocmask(), or sigsuspend().
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       longjmp(), pthread_sigmask(), setjmp(), sigsetjmp(), sigsuspend()
+
+       The Base Definitions volume of POSIX.1‐2008, <setjmp.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                          SIGLONGJMP(3P)

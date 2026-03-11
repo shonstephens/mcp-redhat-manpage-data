@@ -1,0 +1,61 @@
+SSS_SEED(8)                                       SSSD Manual pages                                       SSS_SEED(8)
+
+NAME
+       sss_seed - seed the SSSD cache with a user
+
+SYNOPSIS
+
+       sss_seed [options] -D DOMAIN -n USER
+
+DESCRIPTION
+       sss_seed seeds the SSSD cache with a user entry and temporary password. If a user entry is already present in
+       the SSSD cache then the entry is updated with the temporary password.
+
+OPTIONS
+       -D,--domain DOMAIN
+           Provide the name of the domain in which the user is a member of. The domain is also used to retrieve user
+           information. The domain must be configured in sssd.conf. The DOMAIN option must be provided. Information
+           retrieved from the domain overrides what is provided in the options.
+
+       -n,--username USER
+           The username of the entry to be created or modified in the cache. The USER option must be provided.
+
+       -u,--uid UID
+           Set the UID of the user to UID.
+
+       -g,--gid GID
+           Set the GID of the user to GID.
+
+       -c,--gecos COMMENT
+           Any text string describing the user. Often used as the field for the user's full name.
+
+       -h,--home HOME_DIR
+           Set the home directory of the user to HOME_DIR.
+
+       -s,--shell SHELL
+           Set the login shell of the user to SHELL.
+
+       -i,--interactive
+           Interactive mode for entering user information. This option will only prompt for information not provided
+           in the options or retrieved from the domain.
+
+       -p,--password-file PASS_FILE
+           Specify file to read user's password from. (if not specified password is prompted for)
+
+       -?,--help
+           Display help message and exit.
+
+NOTES
+       The length of the password (or the size of file specified with -p or --password-file option) must be less than
+       or equal to PASS_MAX bytes (64 bytes on systems with no globally-defined PASS_MAX value).
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-files(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8),
+       sss_obfuscate(8), sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(8),
+       sss_ssh_knownhostsproxy(8), sssd-ifp(5), pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  01/26/2026                                          SSS_SEED(8)

@@ -1,0 +1,23 @@
+SYSTEMD-HIBERNATE-RESUME-GENERATOR(8)     systemd-hibernate-resume-generator    SYSTEMD-HIBERNATE-RESUME-GENERATOR(8)
+
+NAME
+       systemd-hibernate-resume-generator - Unit generator for resume= kernel parameter
+
+SYNOPSIS
+       /usr/lib/systemd/system-generators/systemd-hibernate-resume-generator
+
+DESCRIPTION
+       systemd-hibernate-resume-generator is a generator that instantiates systemd-hibernate-resume@.service(8) unit
+       according to the value of resume= parameter specified on the kernel command line.
+
+KERNEL COMMAND LINE
+       systemd-hibernate-resume-generator understands the following kernel command line parameters:
+
+       resume=
+           Takes a path to the resume device. Both persistent block device paths like /dev/disk/by-foo/bar and
+           fstab(5)-style specifiers like "FOO=bar" are supported.
+
+SEE ALSO
+       systemd(1), systemd-hibernate-resume@.service(8), kernel-command-line(7)
+
+systemd 239                                                                     SYSTEMD-HIBERNATE-RESUME-GENERATOR(8)

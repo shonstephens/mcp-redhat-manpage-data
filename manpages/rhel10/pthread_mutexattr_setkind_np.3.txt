@@ -1,0 +1,28 @@
+pthread_mutexattr_setkind_np(3)                Library Functions Manual               pthread_mutexattr_setkind_np(3)
+
+NAME
+       pthread_mutexattr_setkind_np, pthread_mutexattr_getkind_np - deprecated mutex creation attributes
+
+SYNOPSIS
+       #include <pthread.h>
+
+       int  pthread_mutexattr_setkind_np(pthread_mutexattr_t *attr, int kind); int pthread_mutexattr_getkind_np(const
+       pthread_mutexattr_t *attr, int *kind);
+
+DESCRIPTION
+       These functions are deprecated, use pthread_mutexattr_settype(3) and pthread_mutexattr_gettype(3) instead.
+
+RETURN VALUE
+       pthread_mutexattr_getkind_np always returns 0.
+
+       pthread_mutexattr_setkind_np returns 0 on success and a non-zero error code on error.
+
+ERRORS
+       On error, pthread_mutexattr_setkind_np returns the following error code:
+
+       EINVAL kind is neither PTHREAD_MUTEX_FAST_NP nor PTHREAD_MUTEX_RECURSIVE_NP nor PTHREAD_MUTEX_ERRORCHECK_NP.
+
+SEE ALSO
+       pthread_mutexattr_settype(3), pthread_mutexattr_gettype(3).
+
+Linux man-pages 6.06                                  2023-10-31                      pthread_mutexattr_setkind_np(3)

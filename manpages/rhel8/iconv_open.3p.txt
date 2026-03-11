@@ -1,0 +1,83 @@
+ICONV_OPEN(3P)                                POSIX Programmer's Manual                                ICONV_OPEN(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       iconv_open — codeset conversion allocation function
+
+SYNOPSIS
+       #include <iconv.h>
+
+       iconv_t iconv_open(const char *tocode, const char *fromcode);
+
+DESCRIPTION
+       The  iconv_open()  function  shall return a conversion descriptor that describes a conversion from the codeset
+       specified by the string pointed to by the fromcode argument to the codeset specified by the string pointed  to
+       by  the tocode argument. For state-dependent encodings, the conversion descriptor shall be in a codeset-depen‐
+       dent initial shift state, ready for immediate use with iconv().
+
+       Settings of fromcode and tocode and their permitted combinations are implementation-defined.
+
+       A conversion descriptor shall remain valid until it is closed by iconv_close() or an implicit close.
+
+       If a file descriptor is used to implement conversion descriptors, the FD_CLOEXEC flag shall be set;  see  <fc‐
+       ntl.h>.
+
+RETURN VALUE
+       Upon  successful  completion, iconv_open() shall return a conversion descriptor for use on subsequent calls to
+       iconv().  Otherwise, iconv_open() shall return (iconv_t)−1 and set errno to indicate the error.
+
+ERRORS
+       The iconv_open() function may fail if:
+
+       EMFILE All file descriptors available to the process are currently open.
+
+       ENFILE Too many files are currently open in the system.
+
+       ENOMEM Insufficient storage space is available.
+
+       EINVAL The conversion specified by fromcode and tocode is not supported by the implementation.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       Some implementations  of  iconv_open()  use  malloc()  to  allocate  space  for  internal  buffer  areas.  The
+       iconv_open() function may fail if there is insufficient storage space to accommodate these buffers.
+
+       Conforming  applications must assume that conversion descriptors are not valid after a call to one of the exec
+       functions.
+
+       Application developers should consult the system documentation to determine the supported codesets  and  their
+       naming schemes.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       iconv(), iconv_close()
+
+       The Base Definitions volume of POSIX.1‐2008, <fcntl.h>, <iconv.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                          ICONV_OPEN(3P)

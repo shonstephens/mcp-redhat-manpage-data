@@ -1,0 +1,90 @@
+TEMPNAM(3P)                                   POSIX Programmer's Manual                                   TEMPNAM(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       tempnam — create a name for a temporary file
+
+SYNOPSIS
+       #include <stdio.h>
+
+       char *tempnam(const char *dir, const char *pfx);
+
+DESCRIPTION
+       The tempnam() function shall generate a pathname that may be used for a temporary file.
+
+       The  tempnam()  function  allows the user to control the choice of a directory. The dir argument points to the
+       name of the directory in which the file is to be created. If dir is a null pointer or points to a string which
+       is not a name for an appropriate directory, the path prefix defined as P_tmpdir in the <stdio.h> header  shall
+       be used. If that directory is not accessible, an implementation-defined directory may be used.
+
+       Many  applications  prefer  their temporary files to have certain initial letter sequences in their names. The
+       pfx argument should be used for this. This argument may be a null pointer or point to a string of up  to  five
+       bytes to be used as the beginning of the filename.
+
+       Some  implementations  of  tempnam() may use tmpnam() internally. On such implementations, if called more than
+       {TMP_MAX} times in a single process, the behavior is implementation-defined.
+
+RETURN VALUE
+       Upon successful completion, tempnam() shall allocate space for a string, put the generated  pathname  in  that
+       space, and return a pointer to it. The pointer shall be suitable for use in a subsequent call to free().  Oth‐
+       erwise, it shall return a null pointer and set errno to indicate the error.
+
+ERRORS
+       The tempnam() function shall fail if:
+
+       ENOMEM Insufficient storage space is available.
+
+       The following sections are informative.
+
+EXAMPLES
+   Generating a Pathname
+       The  following example generates a pathname for a temporary file in directory /tmp, with the prefix file.  Af‐
+       ter the pathname has been created, the call to free() deallocates the space used to store the pathname.
+
+           #include <stdio.h>
+           #include <stdlib.h>
+           ...
+           const char *directory = "/tmp";
+           const char *fileprefix = "file";
+           char *file;
+
+           file = tempnam(directory, fileprefix);
+           free(file);
+
+APPLICATION USAGE
+       This function only creates pathnames. It is the application's responsibility to create and remove  the  files.
+       Between the time a pathname is created and the file is opened, it is possible for some other process to create
+       a file with the same name. Applications may find tmpfile() more useful.
+
+       Applications  should use the tmpfile(), mkdtemp(), or mkstemp() functions instead of the obsolescent tempnam()
+       function.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       The tempnam() function may be removed in a future version.
+
+SEE ALSO
+       fopen(), free(), mkdtemp(), open(), tmpfile(), tmpnam(), unlink()
+
+       The Base Definitions volume of POSIX.1‐2008, <stdio.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                             TEMPNAM(3P)

@@ -1,0 +1,129 @@
+GETGRNAM(3P)                                  POSIX Programmer's Manual                                  GETGRNAM(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       getgrnam, getgrnam_r — search group database for a name
+
+SYNOPSIS
+       #include <grp.h>
+
+       struct group *getgrnam(const char *name);
+       int getgrnam_r(const char *name, struct group *grp, char *buffer,
+           size_t bufsize, struct group **result);
+
+DESCRIPTION
+       The getgrnam() function shall search the group database for an entry with a matching name.
+
+       The getgrnam() function need not be thread-safe.
+
+       The  getgrnam_r()  function  shall  update  the  group structure pointed to by grp and store a pointer to that
+       structure at the location pointed to by result.  The structure shall contain an entry from the group  database
+       with  a  matching  name.  Storage referenced by the group structure is allocated from the memory provided with
+       the buffer parameter, which is bufsize bytes in size. A call to sysconf(_SC_GETGR_R_SIZE_MAX)  returns  either
+       −1  without  changing  errno or an initial value suggested for the size of this buffer.  A null pointer is re‐
+       turned at the location pointed to by result on error or if the requested entry is not found.
+
+RETURN VALUE
+       The getgrnam() function shall return a pointer to a struct group with the structure defined in <grp.h> with  a
+       matching  entry  if  one is found. The getgrnam() function shall return a null pointer if either the requested
+       entry was not found, or an error occurred. On error, errno shall be set to indicate the error.
+
+       The application shall not modify the structure to which the return value points, nor any storage areas pointed
+       to by pointers within the structure. The returned pointer, and pointers within the structure, might be invali‐
+       dated or the structure or the storage areas might be overwritten by a  subsequent  call  to  getgrent(),  get‐
+       grgid(), or getgrnam().
+
+       The  getgrnam_r()  function  shall return zero on success or if the requested entry was not found and no error
+       has occurred. If any error has occurred, an error number shall be returned to indicate the error.
+
+ERRORS
+       The getgrnam() and getgrnam_r() functions may fail if:
+
+       EIO    An I/O error has occurred.
+
+       EINTR  A signal was caught during getgrnam().
+
+       EMFILE All file descriptors available to the process are currently open.
+
+       ENFILE The maximum allowable number of files is currently open in the system.
+
+       The getgrnam_r() function may fail if:
+
+       ERANGE Insufficient storage was supplied via buffer and bufsize to contain the data to be  referenced  by  the
+              resulting group structure.
+
+       The following sections are informative.
+
+EXAMPLES
+       Note  that  sysconf(_SC_GETGR_R_SIZE_MAX)  may  return  −1 if there is no hard limit on the size of the buffer
+       needed to store all the groups returned. This example shows how an application can allocate a buffer of suffi‐
+       cient size to work with getgrnam_r().
+
+           long int initlen = sysconf(_SC_GETGR_R_SIZE_MAX);
+           size_t len;
+           if (initlen == −1)
+               /* Default initial length. */
+               len = 1024;
+           else
+               len = (size_t) initlen;
+           struct group result;
+           struct group *resultp;
+           char *buffer = malloc(len);
+           if (buffer == NULL)
+               ...handle error...
+           int e;
+           while ((e = getgrnam_r("somegroup", &result, buffer, len, &resultp))
+                   == ERANGE)
+               {
+               size_t newlen = 2 * len;
+               if (newlen < len)
+                   ...handle error...
+               len = newlen;
+               char *newbuffer = realloc(buffer, len);
+               if (newbuffer == NULL)
+                   ...handle error...
+               buffer = newbuffer;
+               }
+           if (e != 0)
+               ...handle error...
+           free (buffer);
+
+APPLICATION USAGE
+       Applications wishing to check for error situations should set errno to 0 before calling getgrnam().  If  errno
+       is set on return, an error occurred.
+
+       The getgrnam_r() function is thread-safe and shall return values in a user-supplied buffer instead of possibly
+       using a static data area that may be overwritten by each call.
+
+       Portable  applications  should  take  into  account  that  it is usual for an implementation to return −1 from
+       sysconf() indicating that there is no maximum for _SC_GETGR_R_SIZE_MAX.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       endgrent(), getgrgid(), sysconf()
+
+       The Base Definitions volume of POSIX.1‐2008, <grp.h>, <sys_types.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                            GETGRNAM(3P)

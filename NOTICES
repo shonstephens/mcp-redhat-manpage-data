@@ -1,0 +1,32 @@
+THIRD-PARTY NOTICES
+
+This package contains man pages extracted and rendered to plain text
+from open source packages distributed in Red Hat Universal Base Image
+(UBI) containers. The man pages are the work of their respective
+upstream authors and projects.
+
+Source images:
+  registry.access.redhat.com/ubi8/ubi:latest
+  registry.access.redhat.com/ubi9/ubi:latest
+  registry.access.redhat.com/ubi10/ubi:latest
+
+Each man page retains the license of its source RPM package. All
+source packages are open source. The licenses represented across the
+included packages are:
+
+  GPLv2                https://www.gnu.org/licenses/old-licenses/gpl-2.0.html
+  GPLv3                https://www.gnu.org/licenses/gpl-3.0.html
+  LGPLv2               https://www.gnu.org/licenses/old-licenses/lgpl-2.0.html
+  LGPLv2.1             https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html
+  LGPLv3               https://www.gnu.org/licenses/lgpl-3.0.html
+  MIT                  https://opensource.org/licenses/MIT
+  BSD (2/3/4-clause)   https://opensource.org/licenses/BSD-3-Clause
+  MPLv2.0              https://www.mozilla.org/en-US/MPL/2.0/
+  Linux-man-pages-copyleft (see man-pages project)
+
+To identify the license for a specific man page, query the source RPM:
+  rpm -qi <package-name> | grep License
+
+Red Hat and Red Hat Enterprise Linux are trademarks of Red Hat, Inc.
+UBI images are provided under the Red Hat Universal Base Image EULA:
+  https://www.redhat.com/licenses/EULA_Red_Hat_Universal_Base_Image_English_20190422.pdf

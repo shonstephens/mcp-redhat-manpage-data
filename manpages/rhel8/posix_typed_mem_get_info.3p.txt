@@ -1,0 +1,91 @@
+POSIX_TYPED_MEM_GET_INFO(3P)                  POSIX Programmer's Manual                  POSIX_TYPED_MEM_GET_INFO(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       posix_typed_mem_get_info — query typed memory information (ADVANCED REALTIME)
+
+SYNOPSIS
+       #include <sys/mman.h>
+
+       int posix_typed_mem_get_info(int fildes,
+           struct posix_typed_mem_info *info);
+
+DESCRIPTION
+       The   posix_typed_mem_get_info()   function   shall   return,   in   the   posix_tmi_length   field   of   the
+       posix_typed_mem_info structure pointed to by info, the maximum length which may be successfully  allocated  by
+       the  typed  memory  object  designated  by  fildes.   This  maximum  length  shall  take into account the flag
+       POSIX_TYPED_MEM_ALLOCATE or POSIX_TYPED_MEM_ALLOCATE_CONTIG specified when the typed memory object represented
+       by fildes was opened. The maximum length is dynamic; therefore, the value returned is  valid  only  while  the
+       current mapping of the corresponding typed memory pool remains unchanged.
+
+       If  fildes  represents  a  typed  memory  object opened with neither the POSIX_TYPED_MEM_ALLOCATE flag nor the
+       POSIX_TYPED_MEM_ALLOCATE_CONTIG flag specified, the returned value of info->posix_tmi_length is unspecified.
+
+       The posix_typed_mem_get_info() function may return  additional  implementation-defined  information  in  other
+       fields of the posix_typed_mem_info structure pointed to by info.
+
+       If  the  memory object specified by fildes is not a typed memory object, then the behavior of this function is
+       undefined.
+
+RETURN VALUE
+       Upon successful completion, the posix_typed_mem_get_info() function shall return zero; otherwise,  the  corre‐
+       sponding error status value shall be returned.
+
+ERRORS
+       The posix_typed_mem_get_info() function shall fail if:
+
+       EBADF  The fildes argument is not a valid open file descriptor.
+
+       ENODEV The fildes argument is not connected to a memory object supported by this function.
+
+       This function shall not return an error code of [EINTR].
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       An  application that needs to allocate a block of typed memory with length dependent upon the amount of memory
+       currently available must either query the typed memory object to obtain the amount  available,  or  repeatedly
+       invoke  mmap()  attempting  to  guess an appropriate length. While the latter method is existing practice with
+       malloc(), it is awkward and imprecise. The posix_typed_mem_get_info() function allows an application to  imme‐
+       diately  determine  available memory. This is particularly important for typed memory objects that may in some
+       cases be scarce resources. Note that when a typed memory pool is a shared resource, some form of mutual-exclu‐
+       sion or synchronization may be required while typed memory is being queried and allocated to prevent race con‐
+       ditions.
+
+       The existing fstat() function is not suitable for this purpose. We realize that implementations  may  wish  to
+       provide  other attributes of typed memory objects (for example, alignment requirements, page size, and so on).
+       The fstat() function returns a structure which is not extensible and, furthermore, contains substantial infor‐
+       mation that is inappropriate for typed memory objects.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       fstat(), mmap(), posix_typed_mem_open()
+
+       The Base Definitions volume of POSIX.1‐2008, <sys_mman.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                            POSIX_TYPED_MEM_GET_INFO(3P)

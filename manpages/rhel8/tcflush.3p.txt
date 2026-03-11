@@ -1,0 +1,81 @@
+TCFLUSH(3P)                                   POSIX Programmer's Manual                                   TCFLUSH(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       tcflush — flush non-transmitted output data, non-read input data, or both
+
+SYNOPSIS
+       #include <termios.h>
+
+       int tcflush(int fildes, int queue_selector);
+
+DESCRIPTION
+       Upon  successful completion, tcflush() shall discard data written to the object referred to by fildes (an open
+       file descriptor associated with a terminal) but not transmitted, or data received but not read,  depending  on
+       the value of queue_selector:
+
+        *  If queue_selector is TCIFLUSH, it shall flush data received but not read.
+
+        *  If queue_selector is TCOFLUSH, it shall flush data written but not transmitted.
+
+        *  If  queue_selector  is  TCIOFLUSH, it shall flush both data received but not read and data written but not
+           transmitted.
+
+       Attempts to use tcflush() from a process which is a member of a background process group on a  fildes  associ‐
+       ated  with its controlling terminal shall cause the process group to be sent a SIGTTOU signal.  If the calling
+       thread is blocking SIGTTOU signals or the process is ignoring SIGTTOU signals, the process shall be allowed to
+       perform the operation, and no signal is sent.
+
+RETURN VALUE
+       Upon successful completion, 0 shall be returned. Otherwise, −1 shall be returned and errno set to indicate the
+       error.
+
+ERRORS
+       The tcflush() function shall fail if:
+
+       EBADF  The fildes argument is not a valid file descriptor.
+
+       EINVAL The queue_selector argument is not a supported value.
+
+       EIO    The process group of the writing process is orphaned, the calling thread is not blocking  SIGTTOU,  and
+              the process is not ignoring SIGTTOU.
+
+       ENOTTY The file associated with fildes is not a terminal.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       tcdrain()
+
+       The Base Definitions volume of POSIX.1‐2008, Chapter 11, General Terminal Interface, <termios.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                             TCFLUSH(3P)

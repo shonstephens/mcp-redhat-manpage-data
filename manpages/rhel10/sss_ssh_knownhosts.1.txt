@@ -1,0 +1,61 @@
+SSS_SSH_KNOWNHOSTS(1)                             SSSD Manual pages                             SSS_SSH_KNOWNHOSTS(1)
+
+NAME
+       sss_ssh_knownhosts - get OpenSSH known hosts public keys
+
+SYNOPSIS
+
+       sss_ssh_knownhosts [options] HOST
+
+DESCRIPTION
+       sss_ssh_knownhosts acquires SSH public keys for host HOST and outputs them in OpenSSH known_hosts key format
+       (see the “SSH_KNOWN_HOSTS FILE FORMAT” section of sshd(8) for more information).
+
+       ssh(1) can be configured to use sss_ssh_knownhosts for public key host authentication using the
+       “KnownHostsCommand” option:
+
+                           KnownHostsCommand /usr/bin/sss_ssh_knownhosts %H
+
+       Please refer to the ssh_config(5) man page for more details about this option.
+
+       This tool requires that SSSD's ssh service is enabled to work properly.
+
+OPTIONS
+       -d,--domain DOMAIN
+           Search for host public keys in SSSD domain DOMAIN.
+
+       -o,--only-host-name
+           When the keys retrieved from the backend do not include the hostname, this tool will add the unmodified
+           hostname as provided by the caller. If this flag is set, only the hostname (no port number) will be added
+           to the keys.
+
+       -?,--help
+           Display help message and exit.
+
+KEY RETRIEVAL
+       The key lines retrieved from the backend are expected to respect the key format as decribed in the
+       “SSH_KNOWN_HOSTS FILE FORMAT” section of sshd(8). However, returning only the keytype and the key itself is
+       tolerated, in which case, the hostname received as parameter will be added before the keytype to output a
+       correctly formatted line. The hostname will be added unmodified or just the hostname (no port number),
+       depending on whether the -o,--only-host-name option was provided.
+
+       When the SSH server is listening on a non-default port, the backend MUST provide the hostname including the
+       port number in the correct format and position as part of the key line. For example, the minimal key line
+       would be:
+
+                           [canonical.host.name]:2222 <keytype> <base64-encoded key>
+
+EXIT STATUS
+       In case of successful execution, even if no key was found for that host or if the ssh responder could not be
+       contacted, 0 is returned. 1 is returned in case of any other error.
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8), sss_obfuscate(8),
+       sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(1), sss_ssh_knownhosts(1), sssd-ifp(5),
+       pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/21/2025                                SSS_SSH_KNOWNHOSTS(1)

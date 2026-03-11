@@ -1,0 +1,76 @@
+TCSENDBREAK(3P)                               POSIX Programmer's Manual                               TCSENDBREAK(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       tcsendbreak — send a break for a specific duration
+
+SYNOPSIS
+       #include <termios.h>
+
+       int tcsendbreak(int fildes, int duration);
+
+DESCRIPTION
+       If  the  terminal  is using asynchronous serial data transmission, tcsendbreak() shall cause transmission of a
+       continuous stream of zero-valued bits for a specific duration. If duration is 0, it shall  cause  transmission
+       of  zero-valued  bits for at least 0.25 seconds, and not more than 0.5 seconds. If duration is not 0, it shall
+       send zero-valued bits for an implementation-defined period of time.
+
+       The fildes argument is an open file descriptor associated with a terminal.
+
+       If the terminal is not using asynchronous serial data transmission, it is implementation-defined  whether  tc‐
+       sendbreak() sends data to generate a break condition or returns without taking any action.
+
+       Attempts to use tcsendbreak() from a process which is a member of a background process group on a fildes asso‐
+       ciated  with its controlling terminal shall cause the process group to be sent a SIGTTOU signal.  If the call‐
+       ing thread is blocking SIGTTOU signals or the process is ignoring SIGTTOU signals, the process  shall  be  al‐
+       lowed to perform the operation, and no signal is sent.
+
+RETURN VALUE
+       Upon successful completion, 0 shall be returned. Otherwise, −1 shall be returned and errno set to indicate the
+       error.
+
+ERRORS
+       The tcsendbreak() function shall fail if:
+
+       EBADF  The fildes argument is not a valid file descriptor.
+
+       EIO    The  process  group of the writing process is orphaned, the calling thread is not blocking SIGTTOU, and
+              the process is not ignoring SIGTTOU.
+
+       ENOTTY The file associated with fildes is not a terminal.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       The Base Definitions volume of POSIX.1‐2008, Chapter 11, General Terminal Interface, <termios.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                         TCSENDBREAK(3P)

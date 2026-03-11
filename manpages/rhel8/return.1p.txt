@@ -1,0 +1,94 @@
+RETURN(1P)                                    POSIX Programmer's Manual                                    RETURN(1P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       return — return from a function or dot script
+
+SYNOPSIS
+       return [n]
+
+DESCRIPTION
+       The return utility shall cause the shell to stop executing the current function or dot script. If the shell is
+       not currently executing a function or dot script, the results are unspecified.
+
+OPTIONS
+       None.
+
+OPERANDS
+       See the DESCRIPTION.
+
+STDIN
+       Not used.
+
+INPUT FILES
+       None.
+
+ENVIRONMENT VARIABLES
+       None.
+
+ASYNCHRONOUS EVENTS
+       Default.
+
+STDOUT
+       Not used.
+
+STDERR
+       The standard error shall be used only for diagnostic messages.
+
+OUTPUT FILES
+       None.
+
+EXTENDED DESCRIPTION
+       None.
+
+EXIT STATUS
+       The  value of the special parameter '?'  shall be set to n, an unsigned decimal integer, or to the exit status
+       of the last command executed if n is not specified. If the value of n is greater than 255, the results are un‐
+       defined. When return is executed in a trap action, the last command is considered to be the command that  exe‐
+       cuted immediately preceding the trap action.
+
+CONSEQUENCES OF ERRORS
+       Default.
+
+       The following sections are informative.
+
+APPLICATION USAGE
+       None.
+
+EXAMPLES
+       None.
+
+RATIONALE
+       The  behavior  of return when not in a function or dot script differs between the System V shell and the Korn‐
+       Shell. In the System V shell this is an error, whereas in the KornShell, the effect is the same as exit.
+
+       The results of returning a number greater than 255 are undefined because of differing practices in the various
+       historical implementations. Some shells AND out all but the low-order 8 bits; others allow larger values,  but
+       not of unlimited size.
+
+       See the discussion of appropriate exit status values under exit.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       Section 2.9.5, Function Definition Command, Section 2.14, Special Built-In Utilities, dot
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                              RETURN(1P)

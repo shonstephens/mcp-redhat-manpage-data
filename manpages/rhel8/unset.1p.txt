@@ -1,0 +1,121 @@
+UNSET(1P)                                     POSIX Programmer's Manual                                     UNSET(1P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       unset — unset values and attributes of variables and functions
+
+SYNOPSIS
+       unset [−fv] name...
+
+DESCRIPTION
+       Each variable or function specified by name shall be unset.
+
+       If  −v  is specified, name refers to a variable name and the shell shall unset it and remove it from the envi‐
+       ronment. Read-only variables cannot be unset.
+
+       If −f is specified, name refers to a function and the shell shall unset the function definition.
+
+       If neither −f nor −v is specified, name refers to a variable; if a variable by that name does not exist, it is
+       unspecified whether a function by that name, if any, shall be unset.
+
+       Unsetting a variable or function that was not previously set shall not be considered an  error  and  does  not
+       cause the shell to abort.
+
+       The  unset  special  built-in shall support the Base Definitions volume of POSIX.1‐2008, Section 12.2, Utility
+       Syntax Guidelines.
+
+       Note that:
+
+           VARIABLE=
+
+       is not equivalent to an unset of VARIABLE; in the example, VARIABLE is set to "".  Also,  the  variables  that
+       can  be unset should not be misinterpreted to include the special parameters (see Section 2.5.2, Special Para‐
+       meters).
+
+OPTIONS
+       See the DESCRIPTION.
+
+OPERANDS
+       See the DESCRIPTION.
+
+STDIN
+       Not used.
+
+INPUT FILES
+       None.
+
+ENVIRONMENT VARIABLES
+       None.
+
+ASYNCHRONOUS EVENTS
+       Default.
+
+STDOUT
+       Not used.
+
+STDERR
+       The standard error shall be used only for diagnostic messages.
+
+OUTPUT FILES
+       None.
+
+EXTENDED DESCRIPTION
+       None.
+
+EXIT STATUS
+        0    All name operands were successfully unset.
+
+       >0    At least one name could not be unset.
+
+CONSEQUENCES OF ERRORS
+       Default.
+
+       The following sections are informative.
+
+APPLICATION USAGE
+       None.
+
+EXAMPLES
+       Unset VISUAL variable:
+
+           unset −v VISUAL
+
+       Unset the functions foo and bar:
+
+           unset −f foo bar
+
+RATIONALE
+       Consideration was given to omitting the −f option in favor of an unfunction utility, but the standard develop‐
+       ers decided to retain historical practice.
+
+       The −v option was introduced because System V historically used one name space for both  variables  and  func‐
+       tions.  When  unset  is used without options, System V historically unset either a function or a variable, and
+       there was no confusion about which one was intended.  A portable POSIX application can use  unset  without  an
+       option to unset a variable, but not a function; the −f option must be used.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       Section 2.14, Special Built-In Utilities
+
+       The Base Definitions volume of POSIX.1‐2008, Section 12.2, Utility Syntax Guidelines
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                               UNSET(1P)

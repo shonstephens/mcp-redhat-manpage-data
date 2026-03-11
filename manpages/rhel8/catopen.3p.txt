@@ -1,0 +1,110 @@
+CATOPEN(3P)                                   POSIX Programmer's Manual                                   CATOPEN(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       catopen — open a message catalog
+
+SYNOPSIS
+       #include <nl_types.h>
+
+       nl_catd catopen(const char *name, int oflag);
+
+DESCRIPTION
+       The catopen() function shall open a message catalog and return a message catalog descriptor. The name argument
+       specifies the name of the message catalog to be opened. If name contains a '/', then name specifies a complete
+       name  for  the  message catalog. Otherwise, the environment variable NLSPATH is used with name substituted for
+       the %N conversion specification (see the Base Definitions volume of POSIX.1‐2008, Chapter 8, Environment Vari‐
+       ables).  If NLSPATH exists in the environment when the process starts, then if  the  process  has  appropriate
+       privileges, the behavior of catopen() is undefined. If NLSPATH does not exist in the environment, or if a mes‐
+       sage catalog cannot be found in any of the components specified by NLSPATH, then an implementation-defined de‐
+       fault  path shall be used. This default may be affected by the setting of LC_MESSAGES if the value of oflag is
+       NL_CAT_LOCALE, or the LANG environment variable if oflag is 0.
+
+       A message catalog descriptor shall remain valid in a process until that process closes  it,  or  a  successful
+       call to one of the exec functions. A change in the setting of the LC_MESSAGES category may invalidate existing
+       open catalogs.
+
+       If  a  file descriptor is used to implement message catalog descriptors, the FD_CLOEXEC flag shall be set; see
+       <fcntl.h>.
+
+       If the value of the oflag argument is 0, the LANG environment variable is used to locate the  catalog  without
+       regard  to  the LC_MESSAGES category. If the oflag argument is NL_CAT_LOCALE, the LC_MESSAGES category is used
+       to locate the message catalog (see the Base Definitions volume of POSIX.1‐2008, Section 8.2, Internationaliza‐
+       tion Variables).
+
+RETURN VALUE
+       Upon successful completion, catopen() shall return a message catalog descriptor for use on subsequent calls to
+       catgets() and catclose().  Otherwise, catopen() shall return (nl_catd) −1 and set errno to indicate the error.
+
+ERRORS
+       The catopen() function may fail if:
+
+       EACCES Search permission is denied for the component of the path prefix of the message catalog or read permis‐
+              sion is denied for the message catalog.
+
+       EMFILE All file descriptors available to the process are currently open.
+
+       ENAMETOOLONG
+              The length of a component of a pathname is longer than {NAME_MAX}.
+
+       ENAMETOOLONG
+              The length of a pathname exceeds {PATH_MAX}, or pathname resolution of a symbolic link produced an  in‐
+              termediate result with a length that exceeds {PATH_MAX}.
+
+       ENFILE Too many files are currently open in the system.
+
+       ENOENT The message catalog does not exist or the name argument points to an empty string.
+
+       ENOMEM Insufficient storage space is available.
+
+       ENOTDIR
+              A  component  of the path prefix of the message catalog names an existing file that is neither a direc‐
+              tory nor a symbolic link to a directory, or the pathname of the message catalog contains at  least  one
+              non-<slash>  character and ends with one or more trailing <slash> characters and the last pathname com‐
+              ponent names an existing file that is neither a directory nor a symbolic link to a directory.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       Some implementations of catopen() use malloc() to allocate space for  internal  buffer  areas.  The  catopen()
+       function may fail if there is insufficient storage space available to accommodate these buffers.
+
+       Conforming  applications must assume that message catalog descriptors are not valid after a call to one of the
+       exec functions.
+
+       Application developers should be aware that guidelines for the location of message catalogs have not yet  been
+       developed.  Therefore  they should take care to avoid conflicting with catalogs used by other applications and
+       the standard utilities.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       catclose(), catgets()
+
+       The Base Definitions volume of POSIX.1‐2008, Chapter 8, Environment Variables, <fcntl.h>, <nl_types.h>,
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                             CATOPEN(3P)

@@ -1,0 +1,41 @@
+SSSD_KRB5_LOCALAUTH_(8)                           SSSD Manual pages                           SSSD_KRB5_LOCALAUTH_(8)
+
+NAME
+       sssd_krb5_localauth_plugin - Kerberos local authorization plugin
+
+DESCRIPTION
+       The Kerberos local authorization plugin sssd_krb5_localauth_plugin is used by libkrb5 to either find the local
+       name for a given Kerberos principal or to check if a given local name and a given Kerberos principal relate to
+       each other.
+
+       SSSD handles the local names for users from a remote source and can read the Kerberos user principal name from
+       the remote source as well. With this information SSSD can easily handle the mappings mentioned above even if
+       the local name and the Kerberos principal differ considerably.
+
+       Additionally with the information read from the remote source SSSD can help to prevent unexpected or unwanted
+       mappings in case the user part of the Kerberos principal accidentally corresponds to a local name of a
+       different user. By default libkrb5 might just strip the realm part of the Kerberos principal to get the local
+       name which would lead to wrong mappings in this case.
+
+CONFIGURATION
+       The Kerberos local authorization plugin must be enabled explicitly in the Kerberos configuration, see
+       krb5.conf(5). SSSD will create a config snippet with the content like e.g.
+
+           [plugins]
+            localauth = {
+             module = sssd:/usr/lib64/sssd/modules/sssd_krb5_localauth_plugin.so
+            }
+
+       automatically in the SSSD's public Kerberos configuration snippet directory. If this directory is included in
+       the local Kerberos configuration the plugin will be enabled automatically.
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8), sss_obfuscate(8),
+       sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(1), sss_ssh_knownhosts(1), sssd-ifp(5),
+       pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/21/2025                              SSSD_KRB5_LOCALAUTH_(8)

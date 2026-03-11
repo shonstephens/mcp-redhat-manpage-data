@@ -1,0 +1,23 @@
+SSS_DEBUGLEVEL(8)                                 SSSD Manual pages                                 SSS_DEBUGLEVEL(8)
+
+NAME
+       sss_debuglevel - [DEPRECATED] change debug level while SSSD is running
+
+SYNOPSIS
+
+       sss_debuglevel [options] NEW_DEBUG_LEVEL
+
+DESCRIPTION
+       sss_debuglevel is deprecated and replaced by the sssctl debug-level command. Please refer to the sssctl man
+       page for more information on sssctl usage.
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-files(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8),
+       sss_obfuscate(8), sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(8),
+       sss_ssh_knownhostsproxy(8), sssd-ifp(5), pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  01/26/2026                                    SSS_DEBUGLEVEL(8)

@@ -1,0 +1,34 @@
+TSIG-KEYGEN(8)                                          BIND 9                                         TSIG-KEYGEN(8)
+
+NAME
+       tsig-keygen - TSIG key generation tool
+
+SYNOPSIS
+       tsig-keygen [-a algorithm] [-h] [name]
+
+DESCRIPTION
+       tsig-keygen  is  an  utility  that generates keys for use with TSIG (Transaction Signatures) as defined in RFC
+       2845. The resulting keys can be used, for example, to secure dynamic DNS updates to a zone, or  for  the  rndc
+       command channel.
+
+       A  domain name can be specified on the command line to be used as the name of the generated key. If no name is
+       specified, the default is tsig-key.
+
+OPTIONS
+       -a algorithm
+              This option specifies the algorithm  to  use  for  the  TSIG  key.  Available  choices  are:  hmac-md5,
+              hmac-sha1,  hmac-sha224, hmac-sha256, hmac-sha384, and hmac-sha512. The default is hmac-sha256. Options
+              are case-insensitive, and the "hmac-" prefix may be omitted.
+
+       -h     This option prints a short summary of options and arguments.
+
+SEE ALSO
+       nsupdate(1), named.conf(5), named(8), BIND 9 Administrator Reference Manual.
+
+AUTHOR
+       Internet Systems Consortium
+
+COPYRIGHT
+       2025, Internet Systems Consortium
+
+9.18.33                                                                                                TSIG-KEYGEN(8)

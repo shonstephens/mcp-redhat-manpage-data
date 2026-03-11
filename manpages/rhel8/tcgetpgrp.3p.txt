@@ -1,0 +1,69 @@
+TCGETPGRP(3P)                                 POSIX Programmer's Manual                                 TCGETPGRP(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       tcgetpgrp — get the foreground process group ID
+
+SYNOPSIS
+       #include <unistd.h>
+
+       pid_t tcgetpgrp(int fildes);
+
+DESCRIPTION
+       The  tcgetpgrp() function shall return the value of the process group ID of the foreground process group asso‐
+       ciated with the terminal.
+
+       If there is no foreground process group, tcgetpgrp() shall return a value greater than 1 that does  not  match
+       the process group ID of any existing process group.
+
+       The  tcgetpgrp()  function  is allowed from a process that is a member of a background process group; however,
+       the information may be subsequently changed by a process that is a member of a foreground process group.
+
+RETURN VALUE
+       Upon successful completion, tcgetpgrp() shall return the value of the  process  group  ID  of  the  foreground
+       process associated with the terminal. Otherwise, −1 shall be returned and errno set to indicate the error.
+
+ERRORS
+       The tcgetpgrp() function shall fail if:
+
+       EBADF  The fildes argument is not a valid file descriptor.
+
+       ENOTTY The calling process does not have a controlling terminal, or the file is not the controlling terminal.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       setsid(), setpgid(), tcsetpgrp()
+
+       The Base Definitions volume of POSIX.1‐2008, <sys_types.h>, <unistd.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                           TCGETPGRP(3P)

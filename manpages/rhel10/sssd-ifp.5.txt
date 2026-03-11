@@ -1,0 +1,85 @@
+SSSD-IFP(5)                                  File Formats and Conventions                                 SSSD-IFP(5)
+
+NAME
+       sssd-ifp - SSSD InfoPipe responder
+
+DESCRIPTION
+       This manual page describes the configuration of the InfoPipe responder for sssd(8). For a detailed syntax
+       reference, refer to the “FILE FORMAT” section of the sssd.conf(5) manual page.
+
+       The InfoPipe responder provides a public D-Bus interface accessible over the system bus. The interface allows
+       the user to query information about remote users and groups over the system bus.
+
+   FIND BY VALID CERTIFICATE
+       The following options can be used to control how the certificates are validated when using the
+       FindByValidCertificate() API:
+
+       •   ca_db
+
+       •   p11_child_timeout
+
+       •   certificate_verification
+
+       For more details about the options see sssd.conf(5).
+
+CONFIGURATION OPTIONS
+       These options can be used to configure the InfoPipe responder.
+
+       allowed_uids (string)
+           Specifies the comma-separated list of UID values or user names that are allowed to access the InfoPipe
+           responder. User names are resolved to UIDs at startup.
+
+           Default: 0 (only the root user is allowed to access the InfoPipe responder)
+
+           Please note that although the UID 0 is used as the default it will be overwritten with this option. If you
+           still want to allow the root user to access the InfoPipe responder, which would be the typical case, you
+           have to add 0 to the list of allowed UIDs as well.
+
+       user_attributes (string)
+           Specifies the comma-separated list of white or blacklisted attributes.
+
+           By default, the InfoPipe responder only allows the default set of POSIX attributes to be requested. This
+           set is the same as returned by getpwnam(3) and includes:
+
+           name
+               user's login name
+
+           uidNumber
+               user ID
+
+           gidNumber
+               primary group ID
+
+           gecos
+               user information, typically full name
+
+           homeDirectory
+               home directory
+
+           loginShell
+               user shell
+
+           It is possible to add another attribute to this set by using “+attr_name” or explicitly remove an
+           attribute using “-attr_name”. For example, to allow “telephoneNumber” but deny “loginShell”, you would use
+           the following configuration:
+
+               user_attributes = +telephoneNumber, -loginShell
+
+           Default: not set. Only the default set of POSIX attributes is allowed.
+
+       wildcard_limit (integer)
+           Specifies an upper limit on the number of entries that are downloaded during a wildcard lookup that
+           overrides caller-supplied limit.
+
+           Default: 0 (let the caller set an upper limit)
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8), sss_obfuscate(8),
+       sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(1), sss_ssh_knownhosts(1), sssd-ifp(5),
+       pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/21/2025                                          SSSD-IFP(5)

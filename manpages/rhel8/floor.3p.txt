@@ -1,0 +1,74 @@
+FLOOR(3P)                                     POSIX Programmer's Manual                                     FLOOR(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       floor, floorf, floorl — floor function
+
+SYNOPSIS
+       #include <math.h>
+
+       double floor(double x);
+       float floorf(float x);
+       long double floorl(long double x);
+
+DESCRIPTION
+       The  functionality  described  on this reference page is aligned with the ISO C standard. Any conflict between
+       the requirements described here and the ISO C standard is unintentional. This volume of POSIX.1‐2008 defers to
+       the ISO C standard.
+
+       These functions shall compute the largest integral value not greater than x.
+
+RETURN VALUE
+       The result shall have the same sign as x.
+
+       Upon successful completion, these functions shall return the largest integral value not greater  than  x,  ex‐
+       pressed as a double, float, or long double, as appropriate for the return type of the function.
+
+       If x is NaN, a NaN shall be returned.
+
+       If x is ±0 or ±Inf, x shall be returned.
+
+ERRORS
+       No errors are defined.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       The  integral  value  returned  by  these functions might not be expressible as an intmax_t.  The return value
+       should be tested before assigning it to an integer type to avoid the undefined results of an integer overflow.
+
+       These functions may raise the inexact floating-point exception if the result differs in value from  the  argu‐
+       ment.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       ceil(), feclearexcept(), fetestexcept(), isnan()
+
+       Section 4.19, Treatment of Error Conditions for Mathematical Functions, <math.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                               FLOOR(3P)

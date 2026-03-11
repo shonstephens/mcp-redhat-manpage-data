@@ -1,0 +1,35 @@
+
+SWAPCONTEXT(2)                               Linux 2.6 Programmer's Guide                              SWAPCONTEXT(2)
+
+NAME
+       swapcontext - Swap out old context with new context
+
+SYNOPSIS
+
+       int sys_swapcontext (struct ucontext *old_ctx, struct ucontext *new_ctx, int r5, int r6, int r7, int r8,
+                            struct pt_regs *regs);
+
+DESCRIPTION
+       swapcontext  swaps out context old_ctx with new context new_ctx. The int r# values have no place in the system
+       call functionality. The regs value indicates the current user register values from the user stack.
+
+RETURN VALUE
+       swapcontext returns 0 on success; otherwise, swapcontext returns one of the errors listed in the "Errors" sec‐
+       tion.
+
+ERRORS
+       -EFAULT
+              swapcontext could not verify that the memory area pointed to by old_ctx or new_ctx was  accessible  for
+              the operation.
+
+       -SIGSEGV
+              A fault occurred when the context was being copied into the kernel's image of the user's registers. The
+              should only occur in an out-of-memory situation.
+
+SEE ALSO
+       getcontext(2), sigaction(2), sigaltstack(2), sigprocmask(2)
+
+AUTHOR
+       Niki Rahimi
+
+Linux 2.6                                           2004-March-12                                      SWAPCONTEXT(2)

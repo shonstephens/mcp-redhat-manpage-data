@@ -1,0 +1,54 @@
+name: Extract and Publish Man Pages
+
+on:
+  workflow_dispatch:
+  schedule:
+    # First Monday of each month at 06:00 UTC
+    - cron: '0 6 1-7 * 1'
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Extract man pages
+        run: bash scripts/extract.sh
+
+      - name: Show extraction results
+        run: |
+          for dir in manpages/rhel*/; do
+            version=$(basename "$dir")
+            count=$(find "$dir" -name '*.txt' | wc -l)
+            echo "$version: $count man pages"
+          done
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git add manpages/
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No changes detected"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Changes detected:"
+            git diff --cached --stat
+          fi
+
+      - name: Bump version and publish
+        if: steps.changes.outputs.changed == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          npm version patch -m "Update man pages from latest UBI images"
+          npm publish
+          git push --follow-tags

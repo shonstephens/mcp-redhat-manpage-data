@@ -1,0 +1,71 @@
+TRUNC(3P)                                     POSIX Programmer's Manual                                     TRUNC(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       trunc, truncf, truncl — round to truncated integer value
+
+SYNOPSIS
+       #include <math.h>
+
+       double trunc(double x);
+       float truncf(float x);
+       long double truncl(long double x);
+
+DESCRIPTION
+       The  functionality  described  on this reference page is aligned with the ISO C standard. Any conflict between
+       the requirements described here and the ISO C standard is unintentional. This volume of POSIX.1‐2008 defers to
+       the ISO C standard.
+
+       These functions shall round their argument to the integer value, in floating format, nearest to but no  larger
+       in magnitude than the argument.
+
+RETURN VALUE
+       Upon successful completion, these functions shall return the truncated integer value.
+       The result shall have the same sign as x.
+
+       If x is NaN, a NaN shall be returned.
+
+       If x is ±0 or ±Inf, x shall be returned.
+
+ERRORS
+       No errors are defined.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       The  integral  value  returned  by  these  functions need not be expressible as an intmax_t.  The return value
+       should be tested before assigning it to an integer type to avoid the undefined results of an integer overflow.
+
+       These functions may raise the inexact floating-point exception if the result differs in value from  the  argu‐
+       ment.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       The Base Definitions volume of POSIX.1‐2008, <math.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                               TRUNC(3P)

@@ -1,0 +1,83 @@
+PSIGINFO(3P)                                  POSIX Programmer's Manual                                  PSIGINFO(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       psiginfo, psignal — print signal information to standard error
+
+SYNOPSIS
+       #include <signal.h>
+
+       void psiginfo(const siginfo_t *pinfo, const char *message);
+       void psignal(int signum, const char *message);
+
+DESCRIPTION
+       The psiginfo() and psignal() functions shall print a message out on stderr associated with a signal number. If
+       message  is  not null and is not the empty string, then the string pointed to by the message argument shall be
+       printed first, followed by a <colon>, a <space>, and the signal description string indicated by signum, or  by
+       the signal associated with pinfo.  If the message argument is null or points to an empty string, then only the
+       signal  description  shall  be printed. For psiginfo(), the argument pinfo references a valid siginfo_t struc‐
+       ture. For psignal(), if signum is not a valid signal number, the behavior is implementation-defined.
+
+       The psiginfo() and psignal() functions shall not change the orientation of the standard error stream.
+
+       The psiginfo() and psignal() functions shall mark for update the last data modification and last  file  status
+       change  timestamps of the file associated with the standard error stream at some time between their successful
+       completion and exit(), abort(), or the completion of fflush() or fclose() on stderr.
+
+       The psiginfo() and psignal() functions shall not change the setting of errno if successful.
+
+       On error, the psiginfo() and psignal() functions shall set the error indicator for the stream to which  stderr
+       points, and shall set errno to indicate the error.
+
+       Since  no  value is returned, an application wishing to check for error situations should set errno to 0, then
+       call psiginfo() or psignal(), then check errno.
+
+RETURN VALUE
+       These functions shall not return a value.
+
+ERRORS
+       Refer to fputc().
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       As an alternative to setting errno to zero before the call and checking if it is non-zero afterwards, applica‐
+       tions can use ferror() to detect whether psiginfo() or psignal() encountered an error.
+
+       An application wishing to use this method to check for error situations should  call  clearerr(stderr)  before
+       calling  psiginfo()  or psignal(), then if ferror(stderr) returns non-zero, the value of errno indicates which
+       error occurred.
+
+RATIONALE
+       System V historically has psignal() and psiginfo() in <siginfo.h>.  However, the  <siginfo.h>  header  is  not
+       specified in the Base Definitions volume of POSIX.1‐2008, and the type siginfo_t is defined in <signal.h>.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       fputc(), perror(), strsignal()
+
+       The Base Definitions volume of POSIX.1‐2008, <signal.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                            PSIGINFO(3P)

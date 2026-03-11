@@ -1,0 +1,88 @@
+TCFLOW(3P)                                    POSIX Programmer's Manual                                    TCFLOW(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       tcflow — suspend or restart the transmission or reception of data
+
+SYNOPSIS
+       #include <termios.h>
+
+       int tcflow(int fildes, int action);
+
+DESCRIPTION
+       The  tcflow() function shall suspend or restart transmission or reception of data on the object referred to by
+       fildes, depending on the value of action.  The fildes argument is an open file descriptor  associated  with  a
+       terminal.
+
+        *  If action is TCOOFF, output shall be suspended.
+
+        *  If action is TCOON, suspended output shall be restarted.
+
+        *  If  action  is  TCIOFF and fildes refers to a terminal device, the system shall transmit a STOP character,
+           which is intended to cause the terminal device to stop transmitting data to the system. If fildes is asso‐
+           ciated with a pseudo-terminal, the STOP character need not be transmitted.
+
+        *  If action is TCION and fildes refers to a terminal device, the system shall transmit  a  START  character,
+           which  is intended to cause the terminal device to start transmitting data to the system. If fildes is as‐
+           sociated with a pseudo-terminal, the START character need not be transmitted.
+
+       The default on the opening of a terminal file is that neither its input nor its output are suspended.
+
+       Attempts to use tcflow() from a process which is a member of a background process group on a fildes associated
+       with its controlling terminal, shall cause the process group to be sent a  SIGTTOU  signal.   If  the  calling
+       thread is blocking SIGTTOU signals or the process is ignoring SIGTTOU signals, the process shall be allowed to
+       perform the operation, and no signal is sent.
+
+RETURN VALUE
+       Upon successful completion, 0 shall be returned. Otherwise, −1 shall be returned and errno set to indicate the
+       error.
+
+ERRORS
+       The tcflow() function shall fail if:
+
+       EBADF  The fildes argument is not a valid file descriptor.
+
+       EINVAL The action argument is not a supported value.
+
+       EIO    The  process  group of the writing process is orphaned, the calling thread is not blocking SIGTTOU, and
+              the process is not ignoring SIGTTOU.
+
+       ENOTTY The file associated with fildes is not a terminal.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       tcsendbreak()
+
+       The Base Definitions volume of POSIX.1‐2008, Chapter 11, General Terminal Interface, <termios.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                              TCFLOW(3P)

@@ -1,0 +1,78 @@
+MQ_SETATTR(3P)                                POSIX Programmer's Manual                                MQ_SETATTR(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       mq_setattr — set message queue attributes (REALTIME)
+
+SYNOPSIS
+       #include <mqueue.h>
+
+       int mq_setattr(mqd_t mqdes, const struct mq_attr *restrict mqstat,
+           struct mq_attr *restrict omqstat);
+
+DESCRIPTION
+       The  mq_setattr()  function shall set attributes associated with the open message queue description referenced
+       by the message queue descriptor specified by mqdes.
+
+       The message queue attributes corresponding to the following members defined in the mq_attr structure shall  be
+       set to the specified values upon successful completion of mq_setattr():
+
+       mq_flags    The value of this member is the bitwise-logical OR of zero or more of O_NONBLOCK and any implemen‐
+                   tation-defined flags.
+
+       The  values  of the mq_maxmsg, mq_msgsize, and mq_curmsgs members of the mq_attr structure shall be ignored by
+       mq_setattr().
+
+       If omqstat is non-NULL, the mq_setattr() function shall store, in the location referenced by omqstat, the pre‐
+       vious message queue attributes and the current queue status.  These values shall be the same as would  be  re‐
+       turned by a call to mq_getattr() at that point.
+
+RETURN VALUE
+       Upon  successful completion, the function shall return a value of zero and the attributes of the message queue
+       shall have been changed as specified.
+
+       Otherwise, the message queue attributes shall be unchanged, and the function shall return a value  of  −1  and
+       set errno to indicate the error.
+
+ERRORS
+       The mq_setattr() function shall fail if:
+
+       EBADF  The mqdes argument is not a valid message queue descriptor.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       None.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       mq_open(), mq_send(), msgctl(), msgget(), msgrcv(), msgsnd()
+
+       The Base Definitions volume of POSIX.1‐2008, <mqueue.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                          MQ_SETATTR(3P)

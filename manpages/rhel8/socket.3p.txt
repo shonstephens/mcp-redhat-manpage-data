@@ -1,0 +1,121 @@
+SOCKET(3P)                                    POSIX Programmer's Manual                                    SOCKET(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       socket — create an endpoint for communication
+
+SYNOPSIS
+       #include <sys/socket.h>
+
+       int socket(int domain, int type, int protocol);
+
+DESCRIPTION
+       The  socket() function shall create an unbound socket in a communications domain, and return a file descriptor
+       that can be used in later function calls that operate on sockets.
+
+       The socket() function takes the following arguments:
+
+       domain      Specifies the communications domain in which a socket is to be created.
+
+       type        Specifies the type of socket to be created.
+
+       protocol    Specifies a particular protocol to be used with the socket. Specifying  a  protocol  of  0  causes
+                   socket() to use an unspecified default protocol appropriate for the requested socket type.
+
+       The  domain argument specifies the address family used in the communications domain. The address families sup‐
+       ported by the system are implementation-defined.
+
+       Symbolic constants that can be used for the domain argument are defined in the <sys/socket.h> header.
+
+       The type argument specifies the socket type, which determines the semantics of communication over the  socket.
+       The following socket types are defined; implementations may specify additional socket types:
+
+       SOCK_STREAM Provides  sequenced,  reliable,  bidirectional,  connection-mode  byte  streams, and may provide a
+                   transmission mechanism for out-of-band data.
+
+       SOCK_DGRAM  Provides datagrams, which are connectionless-mode, unreliable messages of fixed maximum length.
+
+       SOCK_SEQPACKET
+                   Provides sequenced, reliable, bidirectional, connection-mode transmission  paths  for  records.  A
+                   record can be sent using one or more output operations and received using one or more input opera‐
+                   tions,  but a single operation never transfers part of more than one record. Record boundaries are
+                   visible to the receiver via the MSG_EOR flag.
+
+       If the protocol argument is non-zero, it shall specify a protocol that is supported by the address family.  If
+       the protocol argument is zero, the default protocol for this address family and type shall be used. The proto‐
+       cols supported by the system are implementation-defined.
+
+       The process may need to have appropriate privileges to use the socket() function or to create some sockets.
+
+RETURN VALUE
+       Upon  successful completion, socket() shall return a non-negative integer, the socket file descriptor.  Other‐
+       wise, a value of −1 shall be returned and errno set to indicate the error.
+
+ERRORS
+       The socket() function shall fail if:
+
+       EAFNOSUPPORT
+              The implementation does not support the specified address family.
+
+       EMFILE All file descriptors available to the process are currently open.
+
+       ENFILE No more file descriptors are available for the system.
+
+       EPROTONOSUPPORT
+              The protocol is not supported by the address family, or the protocol is not supported by the  implemen‐
+              tation.
+
+       EPROTOTYPE
+              The socket type is not supported by the protocol.
+
+       The socket() function may fail if:
+
+       EACCES The process does not have appropriate privileges.
+
+       ENOBUFS
+              Insufficient resources were available in the system to perform the operation.
+
+       ENOMEM Insufficient memory was available to fulfill the request.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       The  documentation  for  specific address families specifies which protocols each address family supports. The
+       documentation for specific protocols specifies which socket types each protocol supports.
+
+       The application can determine whether an address family is supported by trying to create a socket with  domain
+       set to the protocol in question.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       accept(),  bind(),  connect(),  getsockname(),  getsockopt(), listen(), recv(), recvfrom(), recvmsg(), send(),
+       sendmsg(), setsockopt(), shutdown(), socketpair()
+
+       The Base Definitions volume of POSIX.1‐2008, <netinet_in.h>, <sys_socket.h>
+
+COPYRIGHT
+       Portions of this text are reprinted and reproduced in electronic form from  IEEE  Std  1003.1,  2013  Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications  Issue  7,  Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers, Inc and The
+       Open Group.  (This is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event  of  any  dis‐
+       crepancy  between  this  version  and the original IEEE and The Open Group Standard, the original IEEE and The
+       Open  Group  Standard  is  the  referee  document.  The  original  Standard  can   be   obtained   online   at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the  conversion  of  the  source  files  to  man  page  format.  To  report  such errors, see https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                              SOCKET(3P)

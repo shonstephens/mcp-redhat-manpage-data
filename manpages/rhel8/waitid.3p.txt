@@ -1,0 +1,110 @@
+WAITID(3P)                                    POSIX Programmer's Manual                                    WAITID(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       waitid — wait for a child process to change state
+
+SYNOPSIS
+       #include <sys/wait.h>
+
+       int waitid(idtype_t idtype, id_t id, siginfo_t *infop, int options);
+
+DESCRIPTION
+       The  waitid()  function shall suspend the calling thread until one child of the process containing the calling
+       thread changes state. It records the current state of a child in the  structure  pointed  to  by  infop.   The
+       fields  of  the structure pointed to by infop are filled in as described for the SIGCHLD signal in <signal.h>.
+       If a child process changed state prior to the call to waitid(), waitid() shall  return  immediately.  If  more
+       than  one  thread  is suspended in wait(), waitid(), or waitpid() waiting for termination of the same process,
+       exactly one thread shall return the process status at the time of the target process termination.
+
+       The idtype and id arguments are used to specify which children waitid() waits for.
+
+       If idtype is P_PID, waitid() shall wait for the child with a process ID equal to (pid_t)id.
+
+       If idtype is P_PGID, waitid() shall wait for any child with a process group ID equal to (pid_t)id.
+
+       If idtype is P_ALL, waitid() shall wait for any children and id is ignored.
+
+       The options argument is used to specify which state changes waitid() shall wait for. It is  formed  by  OR'ing
+       together the following flags:
+
+       WCONTINUED  Status shall be returned for any continued child process whose status either has not been reported
+                   since it continued from a job control stop or has been reported only by calls to waitid() with the
+                   WNOWAIT flag set.
+
+       WEXITED     Wait for processes that have exited.
+
+       WNOHANG     Do not hang if no status is available; return immediately.
+
+       WNOWAIT     Keep  the process whose status is returned in infop in a waitable state. This shall not affect the
+                   state of the process; the process may be waited for again after this call completes.
+
+       WSTOPPED    Status shall be returned for any child that has stopped upon receipt of a signal, and whose status
+                   either has not been reported since it stopped or has been reported only by calls to waitid()  with
+                   the WNOWAIT flag set.
+
+       Applications  shall specify at least one of the flags WEXITED, WSTOPPED, or WCONTINUED to be OR'ed in with the
+       options argument.
+
+       The application shall ensure that the infop argument points to a siginfo_t structure. If waitid() returns  be‐
+       cause  a  child process was found that satisfied the conditions indicated by the arguments idtype and options,
+       then the structure pointed to by infop shall be filled in by the system with the status of  the  process;  the
+       si_signo  member  shall be set equal to SIGCHLD.  If waitid() returns because WNOHANG was specified and status
+       is not available for any process specified by idtype and id, then the  si_signo  and  si_pid  members  of  the
+       structure  pointed  to  by infop shall be set to zero and the values of other members of the structure are un‐
+       specified.
+
+RETURN VALUE
+       If WNOHANG was specified and status is not available for any process specified by idtype and id,  0  shall  be
+       returned.  If  waitid() returns due to the change of state of one of its children, 0 shall be returned. Other‐
+       wise, −1 shall be returned and errno set to indicate the error.
+
+ERRORS
+       The waitid() function shall fail if:
+
+       ECHILD The calling process has no existing unwaited-for child processes.
+
+       EINTR  The waitid() function was interrupted by a signal.
+
+       EINVAL An invalid value was specified for options, or idtype and id specify an invalid set of processes.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       Calls to waitid() with idtype equal to P_ALL will collect information about any child process. This may result
+       in interactions with other interfaces that may be waiting for their own children (such as by use of system()).
+       For this reason it is recommended that portable applications not use waitid() with idtype of P_ALL.  See  also
+       APPLICATION USAGE for wait().
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       exec, exit(), wait()
+
+       The Base Definitions volume of POSIX.1‐2008, <signal.h>, <sys_wait.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                              WAITID(3P)

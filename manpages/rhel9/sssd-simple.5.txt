@@ -1,0 +1,90 @@
+SSSD-SIMPLE(5)                               File Formats and Conventions                              SSSD-SIMPLE(5)
+
+NAME
+       sssd-simple - the configuration file for SSSD's 'simple' access-control provider
+
+DESCRIPTION
+       This manual page describes the configuration of the simple access-control provider for sssd(8). For a detailed
+       syntax reference, refer to the “FILE FORMAT” section of the sssd.conf(5) manual page.
+
+       The simple access provider grants or denies access based on an access or deny list of user or group names.
+
+       Groups from other domains configured in sssd.conf, even if the simple access provider is used there as well,
+       and groups managed outside of SSSD are not evaluated.
+
+       The following rules apply:
+
+       •   It is not recommended to leave an option empty, it might cause errors. If you want to allow all users, do
+           not specify any `simple_allow_users` or `simple_allow_groups`.
+
+       •   If any list is provided, the order of evaluation is: allow → deny. This means that any matching deny rule
+           will supersede any matched allow rule.
+
+       •   If either or both "allow" lists are provided, all users are denied unless they appear in at least one of
+           these lists (OR condition).
+
+       •   If either or both "deny" lists are provided, all users are granted access unless they appear in at least
+           one of these lists (OR condition).
+
+CONFIGURATION OPTIONS
+       Refer to the section “DOMAIN SECTIONS” of the sssd.conf(5) manual page for details on the configuration of an
+       SSSD domain.
+
+       simple_allow_users (string)
+           Comma-separated list of users who are allowed to log in. If this option is specified, all other users are
+           denied unless they are members of groups listed in`simple_allow_groups`.
+
+       simple_deny_users (string)
+           Comma-separated list of users who are explicitly denied access. If this option is specified, these users
+           will be denied regardless of whether they appear in `simple_allow_users` or `simple_allow_groups`.
+
+           OR Logic Applies: A user will be denied access if they are listed in `simple_deny_users` or if they are a
+           member of a group in `simple_deny_groups`.
+
+       simple_allow_groups (string)
+           Comma-separated list of groups that are allowed to log in. If this option is specified, all other users
+           are denied unless they are explicitly listed in `simple_allow_users`.
+
+           OR Logic Applies: A user can log in if they are listed in `simple_allow_users` or if they belong to a
+           group in `simple_allow_groups`.
+
+           This applies only to groups within this SSSD domain. Local groups are not evaluated.
+
+       simple_deny_groups (string)
+           Comma-separated list of groups that are explicitly denied access. This applies only to groups within this
+           SSSD domain. Local groups are not evaluated.
+
+           OR Logic Applies: A user will be denied access if they are listed in `simple_deny_users` or if they are a
+           member of any group in `simple_deny_groups`.
+
+           This applies only to groups within this SSSD domain. Local groups are not evaluated.
+
+       Specifying no values for any of the lists is equivalent to skipping it entirely. Beware of this while
+       generating parameters for the simple provider using automated scripts.
+
+EXAMPLE
+       The following example assumes that SSSD is correctly configured and example.com is one of the domains in the
+       [sssd] section. This example shows only the simple access provider-specific options.
+
+           [domain/example.com]
+           access_provider = simple
+           simple_allow_users = user1, user2
+           simple_deny_users = user3, user4
+           simple_allow_groups = allowed_group1
+           simple_deny_groups = denied_group1
+
+NOTES
+       The complete group membership hierarchy is resolved before the access check, thus even nested groups can be
+       included in the access lists. Please be aware that the “ldap_group_nesting_level” option may impact the
+       results and should be set to a sufficient value. (sssd-ldap(5)) option.
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-files(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8),
+       sss_obfuscate(8), sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(8),
+       sss_ssh_knownhostsproxy(8), sssd-ifp(5), pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/17/2025                                       SSSD-SIMPLE(5)

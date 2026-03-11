@@ -1,0 +1,32 @@
+RTAS(2)                                          System Calls Manual                                          RTAS(2)
+
+NAME
+       rtas - Allows userspace to call RTAS (Run Time Abstraction Services)
+
+SYNOPSIS
+
+       int ppc_rtas (struct rtas_args *uargs);
+
+DESCRIPTION
+       ppc_rtas  enables  userspace  manipulation  of  the  RunTime  Abstraction Services (RTAS). RTAS provides for a
+       portable method of access and setting system information. For example, you could gather information on various
+       system sensors and set poweron values. RTAS is accessed via the /proc entry called  "rtas".  Manipulations  on
+       RTAS  are  implemented via command line arguments on /proc/rtas.  The values for uargs vary greatly.  For more
+       information, see the view/arch/ppcKconfig file.
+
+RETURN VALUE
+       rtas returns 0 on success; otherwise it returns one of the errors listed in the "Errors" section.
+
+ERRORS
+       -EPERM User does not have CAP_SYS_ADMIN capabilities.
+
+       -EFAULT
+              Problem copying uargs values to/from user space.
+
+       -EINVAL
+              Either number of uargs passed in too large or size of uargs array too large.
+
+AUTHOR
+       Niki Rahimi.
+
+                                                                                                              RTAS(2)

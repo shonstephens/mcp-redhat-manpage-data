@@ -1,0 +1,72 @@
+POSIX_MEMALIGN(3P)                            POSIX Programmer's Manual                            POSIX_MEMALIGN(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       posix_memalign — aligned memory allocation (ADVANCED REALTIME)
+
+SYNOPSIS
+       #include <stdlib.h>
+
+       int posix_memalign(void **memptr, size_t alignment, size_t size);
+
+DESCRIPTION
+       The  posix_memalign()  function  shall  allocate  size bytes aligned on a boundary specified by alignment, and
+       shall return a pointer to the allocated memory in memptr.  The value of alignment shall be a power of two mul‐
+       tiple of sizeof(void *).
+
+       Upon successful completion, the value pointed to by memptr shall be a multiple of alignment.
+
+       If the size of the space requested is 0, the behavior is implementation-defined; the value returned in  memptr
+       shall be either a null pointer or a unique pointer.
+
+       The free() function shall deallocate memory that has previously been allocated by posix_memalign().
+
+RETURN VALUE
+       Upon  successful  completion, posix_memalign() shall return zero; otherwise, an error number shall be returned
+       to indicate the error.
+
+ERRORS
+       The posix_memalign() function shall fail if:
+
+       EINVAL The value of the alignment parameter is not a power of two multiple of sizeof(void *).
+
+       ENOMEM There is insufficient memory available with the requested alignment.
+
+       The following sections are informative.
+
+EXAMPLES
+       None.
+
+APPLICATION USAGE
+       The posix_memalign() function is part of the Advisory Information option and need not be provided on  all  im‐
+       plementations.
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       free(), malloc()
+
+       The Base Definitions volume of POSIX.1‐2008, <stdlib.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                      POSIX_MEMALIGN(3P)

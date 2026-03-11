@@ -1,0 +1,108 @@
+DIRNAME(3P)                                   POSIX Programmer's Manual                                   DIRNAME(3P)
+
+PROLOG
+       This  manual  page  is  part of the POSIX Programmer's Manual.  The Linux implementation of this interface may
+       differ (consult the corresponding Linux manual page for details of Linux behavior), or the interface  may  not
+       be implemented on Linux.
+
+NAME
+       dirname — report the parent directory name of a file pathname
+
+SYNOPSIS
+       #include <libgen.h>
+
+       char *dirname(char *path);
+
+DESCRIPTION
+       The  dirname()  function  shall  take  a  pointer to a character string that contains a pathname, and return a
+       pointer to a string that is a pathname of the parent directory of that file. Trailing '/'  characters  in  the
+       path are not counted as part of the path.
+
+       If  path  does  not contain a '/', then dirname() shall return a pointer to the string ".".  If path is a null
+       pointer or points to an empty string, dirname() shall return a pointer to the string ".".
+
+       The dirname() function need not be thread-safe.
+
+RETURN VALUE
+       The dirname() function shall return a pointer to a string that is the parent directory of path.  If path is  a
+       null pointer or points to an empty string, a pointer to a string "." is returned.
+
+       The dirname() function may modify the string pointed to by path, and may return a pointer to internal storage.
+       The  returned  pointer  might  be  invalidated  or  the  storage  might be overwritten by a subsequent call to
+       dirname().
+
+ERRORS
+       No errors are defined.
+
+       The following sections are informative.
+
+EXAMPLES
+       The following code fragment reads a pathname, changes the current working directory to the  parent  directory,
+       and opens the file.
+
+           char *path = NULL, *pathcopy;
+           size_t buflen = 0;
+           ssize_t linelen = 0;
+           int fd;
+
+           linelen = getline(&path, &buflen, stdin);
+
+           path[linelen-1] = 0;
+           pathcopy = strdup(path);
+           if (chdir(dirname(pathcopy)) < 0) {
+               ...
+           }
+           if ((fd = open(basename(path), O_RDONLY)) >= 0) {
+               ...
+               close (fd);
+           }
+           ...
+           free (pathcopy);
+           free (path);
+
+   Sample Input and Output Strings for dirname()
+       In  the following table, the input string is the value pointed to by path, and the output string is the return
+       value of the dirname() function.
+                                             ┌──────────────┬───────────────┐
+                                             │ Input String │ Output String │
+                                             ├──────────────┼───────────────┤
+                                             │ "/usr/lib"   │ "/usr"        │
+                                             │ "/usr/"      │ "/"           │
+                                             │ "usr"        │ "."           │
+                                             │ "/"          │ "/"           │
+                                             │ "."          │ "."           │
+                                             │ ".."         │ "."           │
+                                             └──────────────┴───────────────┘
+
+APPLICATION USAGE
+       The dirname() and basename() functions together yield a complete pathname. The  expression  dirname(path)  ob‐
+       tains the pathname of the directory where basename(path) is found.
+
+       Since the meaning of the leading "//" is implementation-defined, dirname("//foo) may return either "//" or '/'
+       (but nothing else).
+
+RATIONALE
+       None.
+
+FUTURE DIRECTIONS
+       None.
+
+SEE ALSO
+       basename()
+
+       The Base Definitions volume of POSIX.1‐2008, <libgen.h>
+
+COPYRIGHT
+       Portions  of  this  text  are  reprinted and reproduced in electronic form from IEEE Std 1003.1, 2013 Edition,
+       Standard for Information Technology -- Portable Operating System Interface (POSIX), The Open Group Base Speci‐
+       fications Issue 7, Copyright (C) 2013 by the Institute of Electrical and Electronics Engineers,  Inc  and  The
+       Open  Group.   (This  is POSIX.1-2008 with the 2013 Technical Corrigendum 1 applied.) In the event of any dis‐
+       crepancy between this version and the original IEEE and The Open Group Standard, the  original  IEEE  and  The
+       Open   Group   Standard   is   the  referee  document.  The  original  Standard  can  be  obtained  online  at
+       http://www.unix.org/online.html .
+
+       Any typographical or formatting errors that appear in this page are most likely to have been introduced during
+       the conversion of the  source  files  to  man  page  format.  To  report  such  errors,  see  https://www.ker‐
+       nel.org/doc/man-pages/reporting_bugs.html .
+
+IEEE/The Open Group                                      2013                                             DIRNAME(3P)

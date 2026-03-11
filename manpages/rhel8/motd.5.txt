@@ -1,0 +1,24 @@
+MOTD(5)                                       Linux Programmer's Manual                                       MOTD(5)
+
+NAME
+       motd - message of the day
+
+DESCRIPTION
+       The  contents  of /etc/motd are displayed by login(1) after a successful login but just before it executes the
+       login shell.
+
+       The abbreviation "motd" stands for "message of the day", and this file has been traditionally used for exactly
+       that (it requires much less disk space than mail to all users).
+
+FILES
+       /etc/motd
+
+SEE ALSO
+       login(1), issue(5)
+
+COLOPHON
+       This page is part of release 4.15 of the Linux man-pages project.  A description of the  project,  information
+       about    reporting    bugs,    and    the    latest    version    of    this    page,    can   be   found   at
+       https://www.kernel.org/doc/man-pages/.
+
+Linux                                                 1992-12-29                                              MOTD(5)

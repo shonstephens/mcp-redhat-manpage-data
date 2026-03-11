@@ -1,0 +1,75 @@
+SSSCTL(8)                                         SSSD Manual pages                                         SSSCTL(8)
+
+NAME
+       sssctl - SSSD control and status utility
+
+SYNOPSIS
+
+       sssctl COMMAND [options]
+
+DESCRIPTION
+       sssctl provides a simple and unified way to obtain information about SSSD status, such as active server,
+       auto-discovered servers, domains and cached objects. In addition, it can manage SSSD data files for
+       troubleshooting in such a way that is safe to manipulate while SSSD is running.
+
+AVAILABLE COMMANDS
+       To list all available commands run sssctl without any parameters. To print help for selected command run
+       sssctl COMMAND --help.
+
+COMMON OPTIONS
+       Those options are available with all commands.
+
+       --debug LEVEL
+           SSSD supports two representations for specifying the debug level. The simplest is to specify a decimal
+           value from 0-9, which represents enabling that level and all lower-level debug messages. The more
+           comprehensive option is to specify a hexadecimal bitmask to enable or disable specific levels (such as if
+           you wish to suppress a level).
+
+           Currently supported debug levels:
+
+           0, 0x0010: Fatal failures. Anything that would prevent SSSD from starting up or causes it to cease
+           running.
+
+           1, 0x0020: Critical failures. An error that doesn't kill SSSD, but one that indicates that at least one
+           major feature is not going to work properly.
+
+           2, 0x0040: Serious failures. An error announcing that a particular request or operation has failed.
+
+           3, 0x0080: Minor failures. These are the errors that would percolate down to cause the operation failure
+           of 2.
+
+           4, 0x0100: Configuration settings.
+
+           5, 0x0200: Function data.
+
+           6, 0x0400: Trace messages for operation functions.
+
+           7, 0x1000: Trace messages for internal control functions.
+
+           8, 0x2000: Contents of function-internal variables that may be interesting.
+
+           9, 0x4000: Extremely low-level tracing information.
+
+           10, 0x10000: Even more low-level libldb tracing information. Almost never really required.
+
+           To log required bitmask debug levels, simply add their numbers together as shown in following examples:
+
+           Example: To log fatal failures, critical failures, serious failures and function data use 0x0270.
+
+           Example: To log fatal failures, configuration settings, function data, trace messages for internal control
+           functions use 0x1310.
+
+           Note: The bitmask format of debug levels was introduced in 1.7.0.
+
+           Default: 0x0070 (i.e. fatal, critical and serious failures; corresponds to setting 2 in decimal notation)
+
+SEE ALSO
+       sssd(8), sssd.conf(5), sssd-ldap(5), sssd-ldap-attributes(5), sssd-krb5(5), sssd-simple(5), sssd-ipa(5), sssd-
+       ad(5), sssd-sudo(5), sssd-session-recording(5), sss_cache(8), sss_debuglevel(8), sss_obfuscate(8),
+       sss_seed(8), sssd_krb5_locator_plugin(8), sss_ssh_authorizedkeys(1), sss_ssh_knownhosts(1), sssd-ifp(5),
+       pam_sss(8).  sss_rpcidmapd(5) sssd-systemtap(5)
+
+AUTHORS
+       The SSSD upstream - https://github.com/SSSD/sssd/
+
+SSSD                                                  10/21/2025                                            SSSCTL(8)
