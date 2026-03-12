@@ -188,10 +188,9 @@ Examples
 See also
        “Control Functions for Coded Character Sets” (ECMA-48) 5th edition, Ecma International, June 1991.   A  gratis
        version  of  ISO  6429,  this document includes a normative description of SGR escape sequences.  Available at
-       ⟨http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf⟩.
+       http://www.ecma-international.org/publications/files/ECMA-ST/Ecma-048.pdf.
 
-       “Hyperlinks  in  Terminal   Emulators”   ⟨https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda⟩,
-       Egmont Koblinger.
+       “Hyperlinks in Terminal Emulators”, Egmont Koblinger.
 
        groff(1), troff(1), groff_out(5), groff_font(5), groff_char(7), ul(1), more(1), less(1), man(1)
 

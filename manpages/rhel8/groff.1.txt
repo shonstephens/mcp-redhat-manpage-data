@@ -12,7 +12,7 @@ SYNOPSIS
 DESCRIPTION
        This  document  describes the groff program, the main front-end for the groff document formatting system.  The
        groff program and macro suite is the implementation of a roff(7) system within the  free  software  collection
-       GNU ⟨http://www.gnu.org⟩.  The groff system has all features of the classical roff, but adds many extensions.
+       GNU.  The groff system has all features of the classical roff, but adds many extensions.
 
        The groff program allows to control the whole groff system by command line options.  This is a great simplifi‐
        cation in comparison to the classical case (which uses pipes only).
@@ -493,8 +493,8 @@ BUGS
        On EBCDIC hosts (e.g., OS/390 Unix), output devices ascii and latin1 aren't available.  Similarly, output  for
        EBCDIC code page cp1047 is not available on ASCII based operating systems.
 
-       Report  bugs  to  the groff mailing list ⟨bug-groff@gnu.org⟩.  Include a complete, self-contained example that
-       allows the bug to be reproduced, and say which version of groff you are using.
+       Report  bugs  to the groff mailing list.  Include a complete, self-contained example that allows the bug to be
+       reproduced, and say which version of groff you are using.
 
 POSITIONS FROM INSTALLATION
        There are some directories in which groff installs all of its  data  files.   Due  to  different  installation
@@ -583,24 +583,21 @@ POSITIONS FROM INSTALLATION
               Font file for font F of device name.
 
 AVAILABILITY
-       Information  on  how  to  get  groff  and  related  information is available at the groff GNU website ⟨http://
-       www.gnu.org/software/groff⟩.
+       Information on how to get groff and related information is available at the groff GNU website.
 
        Three groff mailing lists are available:
 
-              for reporting bugs ⟨bug-groff@gnu.org⟩.
+              for reporting bugs.
 
-              for general discussion of groff, ⟨groff@gnu.org⟩.
+              for general discussion of groff,.
 
-              the groff commit list ⟨groff-commit@ffii.org⟩, a read-only list showing  logs  of  commitments  to  the
-              groff repository.
+              the groff commit list, a read-only list showing logs of commitments to the groff repository.
 
        Details  on  repository access and much more can be found in the file README at the top directory of the groff
        source package.
 
-       There is a free implementation of the grap preprocessor, written by Ted Faber ⟨faber@lunabase.org⟩.   The  ac‐
-       tual  version can be found at the grap website ⟨http://www.lunabase.org/~faber/Vault/software/grap/⟩.  This is
-       the only grap version supported by groff.
+       There is a free implementation of the grap preprocessor, written by Ted Faber.   The  actual  version  can  be
+       found at the grap website.  This is the only grap version supported by groff.
 
 SEE ALSO
        The groff info file contains all information on the groff system within a single document, providing many ex‐
@@ -641,12 +638,12 @@ SEE ALSO
               grodvi(1), grohtml(1), grolbp(1), grolj4(1), lj4_font(5), grops(1), gropdf(1), grotty(1).
 
        Groff macro packages and macro-specific utilities:
-              groff_tmac(5), groff_man(7),  groff_mdoc(7),  groff_me(7),  groff_mm(7),  groff_mmse(7),  groff_mom(7),
+              groff_tmac(5),  groff_man(7),  groff_mdoc(7),  groff_me(7),  groff_mm(7),  groff_mmse(7), groff_mom(7),
               groff_ms(7), groff_www(7), groff_trace(7), mmroff(7).
 
        The following utilities are available:
-              addftinfo(1),   afmtodit(1),   eqn2graph(1),   gdiffmk(1),   grap2graph(1),  groffer(1),  gxditview(1),
-              hpftodit(1), indxbib(1),  lkbib(1),  lookbib(1),  pdfroff(1),  pfbtops(1),  pic2graph(1),  tfmtodit(1),
+              addftinfo(1),  afmtodit(1),  eqn2graph(1),   gdiffmk(1),   grap2graph(1),   groffer(1),   gxditview(1),
+              hpftodit(1),  indxbib(1),  lkbib(1),  lookbib(1),  pdfroff(1),  pfbtops(1),  pic2graph(1), tfmtodit(1),
               xtotroff(1).
 
 COPYING (LICENSE)
@@ -660,14 +657,13 @@ COPYING (LICENSE)
        tation License, Version 1.3 or any later version published by the Free Software Foundation; with the Invariant
        Sections being the macro definition or .co and .au, with no Front-Cover Texts, and with no Back-Cover Texts.
 
-       A  copy  of the Free Documentation License is included as a file called FDL in the main directory of the groff
+       A copy of the Free Documentation License is included as a file called FDL in the main directory of  the  groff
        source package.
 
-       It is also available in the internet at the GNU copyleft site ⟨http://www.gnu.org/copyleft/fdl.html⟩.
+       It is also available in the internet at the GNU copyleft site.
 
 AUTHORS
-       This document is based on the original groff man page written by James Clark ⟨jjc@jclark.com⟩.  It was rewrit‐
-       ten, enhanced, and put under the FDL license by Bernd Warken <groff-bernd.warken-72@web.de>.  It is maintained
-       by Werner Lemberg ⟨wl@gnu.org⟩.
+       This document is based on the original groff man page written by James Clark.  It was rewritten, enhanced, and
+       put under the FDL license by Bernd Warken <groff-bernd.warken-72@web.de>.  It is maintained by Werner Lemberg.
 
 Groff Version 1.22.3                               4 November 2014                                           GROFF(1)

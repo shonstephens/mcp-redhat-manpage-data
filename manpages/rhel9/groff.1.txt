@@ -16,7 +16,7 @@ SYNOPSIS
 DESCRIPTION
        This  document  describes the groff program, the main front-end for the groff document formatting system.  The
        groff program and macro suite is the implementation of a roff(7) system within the  free  software  collection
-       GNU ⟨http://www.gnu.org⟩.  The groff system has all features of the classical roff, but adds many extensions.
+       GNU.  The groff system has all features of the classical roff, but adds many extensions.
 
        The groff program allows control of the whole groff system by command-line options.  This is a great simplifi‐
        cation in comparison to the classical case (which uses pipes only).
@@ -578,27 +578,25 @@ INSTALLATION DIRECTORIES
               Font file for font F of device name.
 
 AVAILABILITY
-       Information on how to get groff and related information is available at the groff  page  of  the  GNU  website
-       ⟨http://www.gnu.org/software/groff⟩.
+       Information on how to get groff and related information is available at the groff page of the GNU website.
 
        Three groff mailing lists are available:
 
-              bug tracker activity (read-only) ⟨bug-groff@gnu.org⟩;
+              bug tracker activity (read-only);
 
-              general discussion ⟨groff@gnu.org⟩; and
+              general discussion; and
 
-              commit activity (read-only) ⟨groff-commit@gnu.org⟩, which reports changes to groff's source code repos‐
-              itory by its developers.
+              commit activity (read-only), which reports changes to groff's source code repository by its developers.
 
-       Details  on  repository access and much more can be found in the file README at the top directory of the groff
+       Details on repository access and much more can be found in the file README at the top directory of  the  groff
        source package.
 
-       A free implementation of the grap preprocessor, written by Ted Faber ⟨faber@lunabase.org⟩, can be found at the
-       grap website ⟨http://www.lunabase.org/~faber/Vault/software/grap/⟩.  This is the only grap supported by groff.
+       A  free implementation of the grap preprocessor, written by Ted Faber, can be found at the grap website.  This
+       is the only grap supported by groff.
 
 AUTHORS
-       groff was written by James Clark ⟨jjc@jclark.com⟩.  This document was rewritten, enhanced, and put  under  the
-       FDL license in 2002 by Bernd Warken ⟨groff-bernd.warken-72@web.de⟩.
+       groff was written by James Clark.  This document was rewritten, enhanced, and put under  the  FDL  license  in
+       2002 by Bernd Warken.
 
 SEE ALSO
        Groff:  The  GNU  Implementation of troff, by Trent A. Fisher and Werner Lemberg, is the primary groff manual.

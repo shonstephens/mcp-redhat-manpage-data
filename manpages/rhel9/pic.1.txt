@@ -403,14 +403,14 @@ SEE ALSO
 
        Tpic: Pic for TeX
 
-       Brian W. Kernighan, PIC — A Graphics Language for Typesetting  (User  Manual)  ⟨http://cm.bell-labs.com/cm/cs/
-       cstr/116.ps.gz⟩.  AT&T Bell Laboratories, Computing Science Technical Report No. 116 (revised May, 1991).
+       Brian W. Kernighan, PIC — A Graphics Language for Typesetting (User Manual).  AT&T Bell Laboratories,  Comput‐
+       ing Science Technical Report No. 116 (revised May, 1991).
 
-       ps2eps is available from CTAN mirrors, e.g. ⟨ftp://ftp.dante.de/tex-archive/support/ps2eps/⟩
+       ps2eps is available from CTAN mirrors, e.g. ftp://ftp.dante.de/tex-archive/support/ps2eps/
 
-       W. Richard Stevens, Turning PIC into HTML ⟨http://www.kohala.com/start/troff/pic2html.html⟩
+       W. Richard Stevens, Turning PIC into HTML
 
-       W. Richard Stevens, Examples of pic Macros ⟨http://www.kohala.com/start/troff/pic.examples.ps⟩
+       W. Richard Stevens, Examples of pic Macros
 
 BUGS
        Input  characters  that are invalid for groff (i.e., those with ASCII code 0, or 013 octal, or between 015 and

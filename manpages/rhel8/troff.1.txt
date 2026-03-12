@@ -232,7 +232,6 @@ COPYING
        source package.
 
 AUTHORS
-       This file was originally written by James Clark, it was modified by  Werner  Lemberg  ⟨wl@gnu.org⟩  and  Bernd
-       Warken ⟨groff-bernd.warken-72@web.de⟩.
+       This file was originally written by James Clark, it was modified by Werner Lemberg and Bernd Warken.
 
 Groff Version 1.22.3                               4 November 2014                                           TROFF(1)

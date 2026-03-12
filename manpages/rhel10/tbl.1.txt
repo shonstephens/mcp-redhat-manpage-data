@@ -538,8 +538,7 @@ See also
        “Tbl—A Program to Format Tables”, by M. E. Lesk, 1976 (revised 16 January 1979), AT&T Bell  Laboratories  Com‐
        puting Science Technical Report No. 49.
 
-       The   spanning   example   above   was   taken   from   mandoc's   man   page   for   its  tbl  implementation
-       ⟨https://man.openbsd.org/tbl.7⟩.
+       The spanning example above was taken from mandoc's man page for its tbl implementation.
 
        groff(1), troff(1)
 

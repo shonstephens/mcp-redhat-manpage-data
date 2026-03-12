@@ -205,7 +205,7 @@ FILES
 
 AUTHORS
        The GNU version of troff was originally written by James Clark; he also wrote the  original  version  of  this
-       document, which was modified by Werner Lemberg ⟨wl@gnu.org⟩ and Bernd Warken ⟨groff-bernd.warken-72@web.de⟩.
+       document, which was modified by Werner Lemberg and Bernd Warken.
 
 SEE ALSO
        groff(1)

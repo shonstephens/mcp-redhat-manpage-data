@@ -330,8 +330,8 @@ Usage
               to s; see groff_mm(7).  It can be specified on the command line as -mm.
 
        om     (invariably called “mom”) is a modern package written by Peter Schaffter  specifically  for  GNU  roff.
-              Consult  the  mom  HTML manual ⟨file:///usr/share/doc/groff/html/mom/toc.html⟩ for extensive documenta‐
-              tion.  She—for mom takes the female pronoun—can be specified on the command line as -mom.
+              Consult  the  mom HTML manual for extensive documentation.  She—for mom takes the female pronoun—can be
+              specified on the command line as -mom.
 
        s      is the original AT&T general-purpose document format; see groff_ms(7).  It can be specified on the com‐
               mand line as -ms.
@@ -634,18 +634,17 @@ Installation directories
 
 Availability
        Obtain links to groff releases for download, its source repository, discussion mailing lists, a support ticket
-       tracker, and further information from the groff page of the GNU website ⟨http://www.gnu.org/software/groff⟩.
+       tracker, and further information from the groff page of the GNU website.
 
-       A free implementation of the grap preprocessor, written by Ted Faber ⟨faber@lunabase.org⟩, can be found at the
-       grap website ⟨http://www.lunabase.org/~faber/Vault/software/grap/⟩.  groff supports only this grap.
+       A free implementation of the grap preprocessor, written by Ted Faber, can be found at the grap website.  groff
+       supports only this grap.
 
 Authors
-       groff  (both  the  front-end  command and the overall system) was primarily written by James Clark ⟨jjc@jclark
-       .com⟩.  Contributors to this document include Clark, Trent  A.  Fisher,  Werner  Lemberg  ⟨wl@gnu.org⟩,  Bernd
-       Warken ⟨groff-bernd.warken-72@web.de⟩, and G. Branden Robinson ⟨g.branden.robinson@gmail.com⟩.
+       groff  (both the front-end command and the overall system) was primarily written by James Clark.  Contributors
+       to this document include Clark, Trent A. Fisher, Werner Lemberg, Bernd Warken, and G. Branden Robinson.
 
 See also
-       Groff:  The  GNU  Implementation of troff, by Trent A. Fisher and Werner Lemberg, is the primary groff manual.
+       Groff: The GNU Implementation of troff, by Trent A. Fisher and Werner Lemberg, is the  primary  groff  manual.
        You can browse it interactively with “info groff”.
 
        Introduction, history, and further reading:
@@ -655,11 +654,11 @@ See also
               gxditview(1)
 
        Preprocessors:
-              chem(1), eqn(1), neqn(1), glilypond(1), grn(1), preconv(1),  gperl(1),  pic(1),  gpinyin(1),  refer(1),
+              chem(1),  eqn(1),  neqn(1),  glilypond(1),  grn(1), preconv(1), gperl(1), pic(1), gpinyin(1), refer(1),
               soelim(1), tbl(1)
 
        Macro packages and package-specific utilities:
-              groff_hdtbl(7),    groff_man(7),    groff_man_style(7),    groff_mdoc(7),   groff_me(7),   groff_mm(7),
+              groff_hdtbl(7),   groff_man(7),   groff_man_style(7),    groff_mdoc(7),    groff_me(7),    groff_mm(7),
               groff_mmse(7),  mmroff(1),  groff_mom(7),  pdfmom(1),  groff_ms(7),  groff_rfc1345(7),  groff_trace(7),
               groff_www(7)
 

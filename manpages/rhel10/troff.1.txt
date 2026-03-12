@@ -262,11 +262,10 @@ Files
 
 Authors
        The GNU version of troff was originally written by James Clark; he also wrote the  original  version  of  this
-       document,  which  was updated by Werner Lemberg ⟨wl@gnu.org⟩, Bernd Warken ⟨groff-bernd.warken-72@web.de⟩, and
-       G. Branden Robinson ⟨g.branden.robinson@gmail.com⟩.
+       document, which was updated by Werner Lemberg, Bernd Warken, and G. Branden Robinson.
 
 See also
-       Groff: The GNU Implementation of troff, by Trent A. Fisher and Werner Lemberg, is the  primary  groff  manual.
+       Groff:  The  GNU  Implementation of troff, by Trent A. Fisher and Werner Lemberg, is the primary groff manual.
        You can browse it interactively with “info groff”.
 
        groff(1)
@@ -277,7 +276,7 @@ See also
               ters, and escape sequences.
 
        groff_char(7)
-              explains  the syntax of groff special character escape sequences, and lists all special characters pre‐
+              explains the syntax of groff special character escape sequences, and lists all special characters  pre‐
               defined by the language.
 
        groff_diff(7)

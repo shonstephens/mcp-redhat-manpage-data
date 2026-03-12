@@ -316,9 +316,9 @@ Usage
        the PFA format described in pfbtops(1).  Several methods exist to generate a Type 42 wrapper; some of them in‐
        volve the use of a PostScript interpreter such as Ghostscript—see gs(1).
 
-       One approach is to use FontForge ⟨https://fontforge.org/⟩, a font editor that can convert  most  outline  font
-       formats.   Here's  an  example  of using the Roboto Slab Serif font with groff.  Several variables are used so
-       that you can more easily adapt it into your own script.
+       One approach is to use FontForge, a font editor that can convert most outline font formats.  Here's an example
+       of using the Roboto Slab Serif font with groff.  Several variables are used so that you can more easily  adapt
+       it into your own script.
 
            MAP=/usr/share/groff/1.23.0/font/devps/generate/text.map
            TTF=/usr/share/fonts/truetype/roboto/slab/RobotoSlab-Regular.ttf
@@ -334,13 +334,13 @@ Usage
            afmtodit "$DIR/devps/$AFM" "$MAP" "$DIR/devps/$GFN"
            printf "$BASE\t$PFA\n" >> "$DIR/devps/download"
 
-       fontforge and afmtodit may generate warnings depending on the attributes of the font.  The test  procedure  is
+       fontforge  and  afmtodit may generate warnings depending on the attributes of the font.  The test procedure is
        simple.
 
            printf ".ft RSR\nHello, world!\n" | groff -F "$DIR" > hello.ps
 
-       Once  you're  satisfied  that  the  font works, you may want to generate any available related styles (for in‐
-       stance, Roboto Slab also has “Bold”, “Light”, and “Thin” styles) and set up GROFF_FONT_PATH in  your  environ‐
+       Once you're satisfied that the font works, you may want to generate any  available  related  styles  (for  in‐
+       stance,  Roboto  Slab also has “Bold”, “Light”, and “Thin” styles) and set up GROFF_FONT_PATH in your environ‐
        ment to include the directory you keep the generated fonts in so that you don't have to use the -F option.
 
 Font installation
@@ -349,35 +349,35 @@ Font installation
        • Convert your font to something groff understands.  This is a PostScript Type 1 font in PFA format or a Post‐
          Script Type 42 font, together with an AFM file.  A PFA file begins as follows.
                 %!PS-AdobeFont-1.0:
-         A  PFB  file contains this string as well, preceded by some non-printing bytes.  If your font is in PFB for‐
+         A PFB file contains this string as well, preceded by some non-printing bytes.  If your font is in  PFB  for‐
          mat, use groff's pfbtops(1) program to convert it to PFA.  For TrueType and other font formats, we recommend
          fontforge, which can convert most outline font formats.  A Type 42 font file begins as follows.
                 %!PS-TrueTypeFont
-         This is a wrapper format for TrueType fonts.  Old PostScript printers might not support them (that is,  they
-         might  not  have a built-in TrueType font interpreter).  In the following steps, we will consider the use of
-         CTAN's BrushScriptX-Italic ⟨https://ctan.org/tex-archive/fonts/brushscr⟩ font in PFA format.
+         This  is a wrapper format for TrueType fonts.  Old PostScript printers might not support them (that is, they
+         might not have a built-in TrueType font interpreter).  In the following steps, we will consider the  use  of
+         CTAN's BrushScriptX-Italic font in PFA format.
 
        • Convert the AFM file to a groff font description file with the afmtodit(1) program.  For instance,
                 $ afmtodit BrushScriptX-Italic.afm text.map BSI
          converts the Adobe Font Metric file BrushScriptX-Italic.afm to the groff font description file BSI.
 
-         If you have a font family which provides regular upright  (roman),  bold,  italic,  and  bold-italic  styles
-         (where  “italic”  may  be  “oblique”  or “slanted”), we recommend using the letters R, B, I, and BI, respec‐
-         tively, as suffixes to the groff font family name to enable groff's font family  and  style  selection  fea‐
-         tures.   An example is groff's built-in support for Times: the font family name is abbreviated as T, and the
-         groff font names are therefore TR, TB, TI, and TBI.  In our  example,  however,  the  BrushScriptX  font  is
+         If  you  have  a  font  family  which provides regular upright (roman), bold, italic, and bold-italic styles
+         (where “italic” may be “oblique” or “slanted”), we recommend using the letters R,  B,  I,  and  BI,  respec‐
+         tively,  as  suffixes  to  the groff font family name to enable groff's font family and style selection fea‐
+         tures.  An example is groff's built-in support for Times: the font family name is abbreviated as T, and  the
+         groff  font  names  are  therefore  TR,  TB, TI, and TBI.  In our example, however, the BrushScriptX font is
          available in a single style only, italic.
 
-       • Install  the  groff  font description file(s) in a devps subdirectory in the search path that groff uses for
-         device and font file descriptions.  See the GROFF_FONT_PATH entry in section “Environment” of  troff(1)  for
+       • Install the groff font description file(s) in a devps subdirectory in the search path that  groff  uses  for
+         device  and  font file descriptions.  See the GROFF_FONT_PATH entry in section “Environment” of troff(1) for
          the current value of the font search path.  While groff doesn't directly use AFM files, it is a good idea to
          store them alongside its font description files.
 
-       • Register  fonts  in  the  devps/download file so they can be located for embedding in PostScript files grops
+       • Register fonts in the devps/download file so they can be located for embedding  in  PostScript  files  grops
          generates.  Only the first download file encountered in the font search path is read.  If in doubt, copy the
-         default download file (see section “Files” below) to the first directory in the font  search  path  and  add
-         your  fonts  there.  The PostScript font name used by grops is stored in the internalname field in the groff
-         font description file.  (This name does not necessarily resemble the font's file name.)  We add the  follow‐
+         default  download  file  (see  section “Files” below) to the first directory in the font search path and add
+         your fonts there.  The PostScript font name used by grops is stored in the internalname field in  the  groff
+         font  description file.  (This name does not necessarily resemble the font's file name.)  We add the follow‐
          ing line to download.
                 BrushScriptX-Italic→BrushScriptX-Italic.pfa
          A tab character, depicted as →, separates the fields.
@@ -392,7 +392,7 @@ Old fonts
        has 314 glyphs and includes the Euro glyph.  For backwards compatibility, these old font descriptions are also
        installed in the /usr/share/groff/1.23.0/oldfont/devps directory.
 
-       To  use  them, make sure that grops finds the fonts before the default system fonts (with the same names): ei‐
+       To use them, make sure that grops finds the fonts before the default system fonts (with the same  names):  ei‐
        ther give grops the -F command-line option,
               $ groff -Tps -P-F -P/usr/share/groff/1.23.0/oldfont ...
        or add the directory to groff's font and device description search path environment variable,
@@ -402,15 +402,15 @@ Old fonts
 
 Environment
        GROFF_FONT_PATH
-              A list of directories in which to seek the selected output device's directory of device  and  font  de‐
+              A  list  of  directories in which to seek the selected output device's directory of device and font de‐
               scription files.  See troff(1) and groff_font(5).
 
        GROPS_PROLOGUE
-              If  this is set to foo, then grops uses the file foo (in the font path) instead of the default prologue
+              If this is set to foo, then grops uses the file foo (in the font path) instead of the default  prologue
               file prologue.  The option -P overrides this environment variable.
 
        SOURCE_DATE_EPOCH
-              A timestamp (expressed as seconds since the Unix epoch) to use as  the  output  creation  timestamp  in
+              A  timestamp  (expressed  as  seconds  since the Unix epoch) to use as the output creation timestamp in
               place of the current time.  The time is converted to human-readable form using ctime(3) and recorded in
               a PostScript comment.
 
@@ -431,28 +431,27 @@ Files
               is the default PostScript prologue prefixed to every output file.
 
        /usr/share/groff/1.23.0/font/devps/text.enc
-              describes  the encoding scheme used by most PostScript Type 1 fonts; the encoding directive of font de‐
+              describes the encoding scheme used by most PostScript Type 1 fonts; the encoding directive of font  de‐
               scription files for the ps device refers to it.
 
        /usr/share/groff/1.23.0/tmac/ps.tmac
-              defines macros for use with the ps output device.  It is automatically loaded by troffrc  when  the  ps
+              defines  macros  for  use with the ps output device.  It is automatically loaded by troffrc when the ps
               output device is selected.
 
        /usr/share/groff/1.23.0/tmac/pspic.tmac
-              defines  the  PSPIC  macro  for embedding images in a document; see groff_tmac(5).  It is automatically
+              defines the PSPIC macro for embedding images in a document; see  groff_tmac(5).   It  is  automatically
               loaded by troffrc.
 
        /usr/share/groff/1.23.0/tmac/psold.tmac
-              provides replacement glyphs for text fonts that lack complete coverage of  the  ISO  Latin-1  character
-              set;  using  it,  groff can produce glyphs like eth (ð) and thorn (þ) that older PostScript printers do
+              provides  replacement  glyphs  for  text fonts that lack complete coverage of the ISO Latin-1 character
+              set; using it, groff can produce glyphs like eth (ð) and thorn (þ) that older  PostScript  printers  do
               not natively support.
 
-       grops creates temporary files using the template “gropsXXXXXX”; see groff(1) for details on their storage  lo‐
+       grops  creates temporary files using the template “gropsXXXXXX”; see groff(1) for details on their storage lo‐
        cation.
 
 See also
-       PostScript   Language   Document   Structuring  Conventions  Specification  ⟨http://partners.adobe.com/public/
-       developer/en/ps/5001.DSC_Spec.pdf⟩
+       PostScript Language Document Structuring Conventions Specification
 
        afmtodit(1), groff(1), troff(1), pfbtops(1), groff_char(7), groff_font(5), groff_out(5), groff_tmac(5)
 
