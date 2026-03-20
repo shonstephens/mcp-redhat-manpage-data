@@ -1,6 +1,6 @@
 {
   "name": "mcp-redhat-manpage-data",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Pre-extracted RHEL man pages for mcp-redhat-manpage (RHEL 8, 9, 10)",
   "main": "index.js",
   "scripts": {
@@ -16,11 +16,11 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/shonstephens/mcp-redhat-manpage-data.git"
+    "url": "git+https://github.com/sleepytimeshon/mcp-redhat-manpage-data.git"
   },
-  "homepage": "https://github.com/shonstephens/mcp-redhat-manpage-data#readme",
+  "homepage": "https://github.com/sleepytimeshon/mcp-redhat-manpage-data#readme",
   "bugs": {
-    "url": "https://github.com/shonstephens/mcp-redhat-manpage-data/issues"
+    "url": "https://github.com/sleepytimeshon/mcp-redhat-manpage-data/issues"
   },
   "publishConfig": {
     "provenance": true,

@@ -1,8 +1,8 @@
 # mcp-redhat-manpage-data
 
-Pre-extracted RHEL man pages for [mcp-redhat-manpage](https://github.com/shonstephens/mcp-redhat-manpage). Contains rendered plain-text man pages from RHEL 8, 9, and 10 UBI container images.
+Pre-extracted RHEL man pages for [mcp-redhat-manpage](https://github.com/sleepytimeshon/mcp-redhat-manpage). Contains rendered plain-text man pages from RHEL 8, 9, and 10 UBI container images.
 
-This package is a data dependency — install [mcp-redhat-manpage](https://github.com/shonstephens/mcp-redhat-manpage) to use it.
+This package is a data dependency — install [mcp-redhat-manpage](https://github.com/sleepytimeshon/mcp-redhat-manpage) to use it.
 
 ## Contents
 
@@ -34,11 +34,11 @@ Source images:
 
 ## Related MCP Servers
 
-- [mcp-redhat-account](https://github.com/shonstephens/mcp-redhat-account) - Account management
-- [mcp-redhat-knowledge](https://github.com/shonstephens/mcp-redhat-knowledge) - Knowledge Base search
-- [mcp-redhat-manpage](https://github.com/shonstephens/mcp-redhat-manpage) - MCP server that serves this data
-- [mcp-redhat-subscription](https://github.com/shonstephens/mcp-redhat-subscription) - Subscription management
-- [mcp-redhat-support](https://github.com/shonstephens/mcp-redhat-support) - Support case management
+- [mcp-redhat-account](https://github.com/sleepytimeshon/mcp-redhat-account) - Account management
+- [mcp-redhat-knowledge](https://github.com/sleepytimeshon/mcp-redhat-knowledge) - Knowledge Base search
+- [mcp-redhat-manpage](https://github.com/sleepytimeshon/mcp-redhat-manpage) - MCP server that serves this data
+- [mcp-redhat-subscription](https://github.com/sleepytimeshon/mcp-redhat-subscription) - Subscription management
+- [mcp-redhat-support](https://github.com/sleepytimeshon/mcp-redhat-support) - Support case management
 
 ## License
 
